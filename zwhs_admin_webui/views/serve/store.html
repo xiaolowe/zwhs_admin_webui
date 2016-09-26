@@ -1,0 +1,321 @@
+<div class="pageheader" >
+  <h1>母婴店服务管理</h1>
+  <div class="breadcrumb-wrapper hidden-xs">
+      <span class="label">你的足迹:</span>
+      <ol class="breadcrumb">
+          <li><a href="index.html">母婴店服务管理</a>
+          
+      </ol>
+  </div>
+</div>
+
+<section id="main-content" class="animated fadeInRight" ng-controller="serviceStore" >
+    <div class="row">
+     <div class="col-md-12">
+      <div class="panel panel-default">
+          <div class="panel-heading"  ng-show="detail">
+            <h3 class="panel-title">母婴店服务详情</h3>
+           
+          </div>
+        <div class="panel-body" ng-show="detail"> 
+                   <table  width="80%">
+                      <tbody style=" line-height: 38px;">
+                      
+                        <tr >
+                            <td>店铺服务编号&nbsp;:&nbsp;{{Store.id}}</td>
+                            <td>店铺名称&nbsp;:&nbsp;{{Store.companyName}}</td>
+                        </tr>
+                        <tr >
+                            <td>账&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;号&nbsp;:&nbsp;{{Store.serviceInfo.contactsPhone}}</td>
+                            <td>创建时间&nbsp;:&nbsp;{{Store.store.createTime| date : 'yyyy年MM月dd日 HH:mm:ss'}}</td>
+                        </tr>
+                         
+                         <tr >
+                            <td>联系人&nbsp;&nbsp;&nbsp;:&nbsp;{{Store.contactsName}}</td>
+                            <td>联系电话&nbsp;:&nbsp;&nbsp;{{Store.store.userPhone}}</td>
+                        </tr>
+                         <tr >
+                            <td>店主姓名:&nbsp;{{Store.store.storeOwner}}</td>
+                            <td>身份证号码:&nbsp;{{Store.store.storeOwnerCard}}</td>
+                        </tr>
+                         <tr >
+                            <td>银行卡&nbsp;&nbsp;&nbsp;:&nbsp;{{Store.store.bankAccNumber}}</td>
+                            <td>持&nbsp;卡&nbsp;人&nbsp;:&nbsp;{{Store.store.bankOwner}}</td>
+                        </tr>
+                         <tr >
+                            <td>开户行&nbsp;&nbsp;&nbsp;:&nbsp;{{Store.store.bankAccName}}</td>
+                            <td >营业执照号码:
+                              {{Store.store.businessLicence}}
+                            </td>
+                        </tr>
+
+                       
+
+                        <tr >
+                              <td colspan="2"  > 
+                                所在省&nbsp;:&nbsp;{{Store.store.regionProvName}}&nbsp;&nbsp;&nbsp;&nbsp;
+                                所在市&nbsp;:&nbsp;{{Store.store.regionCityName}}&nbsp;&nbsp;&nbsp;&nbsp;
+                                所在区&nbsp;:&nbsp;{{Store.store.regionAreaName}}&nbsp;&nbsp;&nbsp;&nbsp;
+                             </td>
+
+                         
+                            
+                        </tr>
+
+
+
+                        <tr >
+                            <td colspan="2">法人身份证:
+                              <A ng-show="Store.store.ownerCardFront" ng-click="openImage(Store.store.ownerCardFront)">查看图片</A>
+                              <span ng-show="!Store.store.ownerCardFront" >未上传图片</span>
+                            </td>
+                        </tr>
+                        <tr >
+                            <td colspan="2">税务登记证:
+                              <A ng-show="Store.store.taxRegCert" ng-click="openImage(Store.store.taxRegCert)">查看图片</A>
+                              <span ng-show="!Store.store.taxRegCert" >未上传图片</span>
+                            </td>
+                        </tr>
+
+                         <tr >
+                            <td colspan="2">组织机构代码证:
+                              <A ng-show="Store.store.organizationCode" ng-click="openImage(Store.store.organizationCode)">查看图片</A>
+                              <span ng-show="!Store.store.organizationCode" >未上传图片</span>
+                            </td>
+                        </tr>
+
+                        <tr >
+                            <td colspan="2">经营照片:
+                              <A  ng-show="Store.store.storeImage" ng-click="openImage(Store.store.storeImage)">查看图片</A>
+                              <span ng-show="!Store.store.storeImage" >未上传图片</span>
+                            </td>
+                        </tr>
+
+                        <tr >
+                          <td td colspan="2" ng-show="Store.serviceVerify==0" style="text-align: center;">
+                              <button type="button" class="btn btn-sm btn-primary" ng-click="passordersDetail(Store.id)">通过</button>
+                              <button type="button" class="btn  btn-sm btn-info" ng-click="turnordersDetail(Store.id)">驳回</button>
+                                 <button type="button" class="btn btn-sm btn-info btn-success btn-trans" ng-click="listshow()">返回</button>
+                            </td>
+                         </tr>
+                        
+                         <tr >
+
+                          <td td colspan="2" ng-show="Store.serviceVerify>=1" style="text-align: center;">
+                              <button type="button" class="btn btn-sm btn-primary" ng-click="freezeDetail(Store.id)">冻结</button>
+                              <button type="button" class="btn btn-sm btn-info" ng-click="saveordersDetail(Store.id)">修改</button>  
+                              <button type="button" class="btn btn-sm  btn-info btn-success btn-trans" ng-click="listshow()">返回</button>
+                          </td>
+                         </tr>
+                      </tbody>
+                  </table>
+                
+                 
+        </div>
+
+
+
+      
+    <div class="panel-heading"  ng-show="list">
+        <h3 class="panel-title">母婴店服务列表</h3>
+    </div>                     
+                 
+    <div class="panel-body" ng-show="list">
+                <div class="tab-wrapper tab-primary" >
+                    <tabset>
+                        <tab heading="全部"  ng-controller="serviceStorelistall" >
+                          <div class="table-responsive">
+                            <div class="col-md-12">
+                              <input type="text"   placeholder="输入母婴店名称" ng-model="company_name" class="pub-iput pub-iput-width"> &nbsp; &nbsp;
+                              <button class="btn btn-sm btn-primary " ng-click='search()'>查询店铺</button>
+                            </div>
+                            <br/>
+                            <br/>
+
+
+                             <table id="example" class="table table-striped table-bordered "cellspacing="0" width="100%" >
+                                  <thead>
+                                      <tr>
+                                          <th>母婴店编号</th>
+                                          <th>注册时间</th>
+                                          <th>母婴店名称</th>
+                                          <th>所在地</th>
+                                          <th>联系人</th>
+                                          <th>操作</th>
+                                          
+                                      </tr>
+                                  </thead>
+                                  <tbody>
+                                      <tr ng-repeat="items in rows">
+                                          <td>{{items.id}}</td>
+                                          <td>{{items.updDate| date : 'yyyy年MM月dd日 HH:mm:ss'}}</td>
+                                          <td>{{items.companyName}}</td>
+                                         <td>{{items.store.regionProvName}}{{items.store.regionCityName}}{{items.store.regionAreaName}}</td>
+                                          <td>{{items.store.storeOwner}}</td>
+                                   
+                                          <td><a><span type="button"   ng-click="detailshow(items.id)">查看详情</button></a></td>
+                                      </tr>
+                                      <tr ng-show="rows.length==0">
+                                                 <th    colspan="7">没有筛选出符合条件的店铺</td>
+                                      </tr>
+                                  </tbody>
+                              </table>
+                               <!-- page -->
+                                  <div>
+                                      <div uib-pagination total-items="totalItems" ng-model="currentPage" ng-change="pageChanged()" items-per-page="10" max-size="10" template-url="views/page/pagination.html" boundary-links="true"></div>
+                                    </div>
+                                <!-- /page -->
+                          </div>
+                        </tab>
+
+
+                         <tab heading="待审核"  ng-controller="serviceStorelist0" >
+                          <div class="table-responsive">
+                            <div class="col-md-12">
+                              <input type="text"   placeholder="输入母婴店名称" ng-model="company_name" class="pub-iput pub-iput-width"> &nbsp; &nbsp;
+                              <button class="btn btn-sm btn-primary " ng-click='search()'>查询店铺</button>
+                              
+
+                            </div>
+                            <br/>
+                            <br/>
+
+
+                              <table id="example" class="table table-striped table-bordered "cellspacing="0" width="100%" >
+                                  <thead>
+                                      <tr>
+                                          <th>母婴店编号</th>
+                                          <th>注册时间</th>
+                                          <th>母婴店名称</th>
+                                          <th>所在地</th>
+                                          <th>联系人</th>
+                                          <th>操作</th>
+                                          
+                                      </tr>
+                                  </thead>
+                                  <tbody>
+                                      <tr ng-repeat="items in rows">
+                                          <td>{{items.id}}</td>
+                                          <td>{{items.updDate| date : 'yyyy年MM月dd日 HH:mm:ss'}}</td>
+                                          <td>{{items.companyName}}</td>
+                                         <td>{{items.store.regionProvName}}{{items.store.regionCityName}}{{items.store.regionAreaName}}</td>
+                                          <td>{{items.store.storeOwner}}</td>
+                                   
+                                          <td><a><span type="button"   ng-click="detailshow(items.id)">查看详情</button></a></td>
+                                      </tr>
+                                      <tr ng-show="rows.length==0">
+                                                 <th    colspan="7">没有筛选出符合条件的店铺</td>
+                                      </tr>
+                                  </tbody>
+                              </table>
+                               <!-- page -->
+                                  <div>
+                                      <div uib-pagination total-items="totalItems" ng-model="currentPage" ng-change="pageChanged()" items-per-page="10" max-size="10" template-url="views/page/pagination.html" boundary-links="true"></div>
+                                    </div>
+                                <!-- /page -->
+                          </div>
+                        </tab>
+
+
+                        <tab heading="已审核"  ng-controller="serviceStorelist1" >
+                          <div class="table-responsive">
+                            <div class="col-md-12">
+                              <input type="text"   placeholder="输入母婴店名称" ng-model="company_name" class="pub-iput pub-iput-width"> &nbsp; &nbsp;
+                              <button class="btn btn-sm btn-primary " ng-click='search()'>查询店铺</button>
+                              
+
+                            </div>
+                            <br/>
+                            <br/>
+
+
+                            <table id="example" class="table table-striped table-bordered "cellspacing="0" width="100%" >
+                                  <thead>
+                                      <tr>
+                                          <th>母婴店编号</th>
+                                          <th>注册时间</th>
+                                          <th>母婴店名称</th>
+                                          <th>所在地</th>
+                                          <th>联系人</th>
+                                          <th>操作</th>
+                                          
+                                      </tr>
+                                  </thead>
+                                  <tbody>
+                                      <tr ng-repeat="items in rows">
+                                          <td>{{items.id}}</td>
+                                          <td>{{items.updDate| date : 'yyyy年MM月dd日 HH:mm:ss'}}</td>
+                                          <td>{{items.companyName}}</td>
+                                         <td>{{items.store.regionProvName}}{{items.store.regionCityName}}{{items.store.regionAreaName}}</td>
+                                          <td>{{items.store.storeOwner}}</td>
+                                   
+                                          <td><a><span type="button"   ng-click="detailshow(items.id)">查看详情</button></a></td>
+                                      </tr>
+                                      <tr ng-show="rows.length==0">
+                                                 <th    colspan="7">没有筛选出符合条件的店铺</td>
+                                      </tr>
+                                  </tbody>
+                              </table>
+                               <!-- page -->
+                                  <div>
+                                      <div uib-pagination total-items="totalItems" ng-model="currentPage" ng-change="pageChanged()" items-per-page="10" max-size="10" template-url="views/page/pagination.html" boundary-links="true"></div>
+                                    </div>
+                                <!-- /page -->
+                          </div>
+                        </tab>
+
+                        <tab heading="已冻结"  ng-controller="serviceStorelist3" >
+                          <div class="table-responsive">
+                            <div class="col-md-12">
+                              <input type="text"   placeholder="输入母婴店名称" ng-model="company_name" class="pub-iput pub-iput-width"> &nbsp; &nbsp;
+                              <button class="btn btn-sm btn-primary " ng-click='search()'>查询店铺</button>
+                              
+
+                            </div>
+                            <br/>
+                            <br/>
+
+                            <table id="example" class="table table-striped table-bordered "cellspacing="0" width="100%" >
+                                  <thead>
+                                      <tr>
+                                          <th>母婴店编号</th>
+                                          <th>注册时间</th>
+                                          <th>母婴店名称</th>
+                                          <th>所在地</th>
+                                          <th>联系人</th>
+                                          <th>操作</th>
+                                          
+                                      </tr>
+                                  </thead>
+                                  <tbody>
+                                      <tr ng-repeat="items in rows">
+                                          <td>{{items.id}}</td>
+                                          <td>{{items.updDate| date : 'yyyy年MM月dd日 HH:mm:ss'}}</td>
+                                          <td>{{items.companyName}}</td>
+                                         <td>{{items.store.regionProvName}}{{items.store.regionCityName}}{{items.store.regionAreaName}}</td>
+                                          <td>{{items.store.storeOwner}}</td>
+                                   
+                                          <td><a><span type="button"   ng-click="detailshow(items.id)">查看详情</button></a></td>
+                                      </tr>
+                                      <tr ng-show="rows.length==0">
+                                                 <th    colspan="7">没有筛选出符合条件的店铺</td>
+                                      </tr>
+                                  </tbody>
+                              </table>
+                               <!-- page -->
+                                  <div>
+                                      <div uib-pagination total-items="totalItems" ng-model="currentPage" ng-change="pageChanged()" items-per-page="10" max-size="10" template-url="views/page/pagination.html" boundary-links="true"></div>
+                                    </div>
+                                <!-- /page -->
+                          </div>
+                        </tab>
+
+                       
+
+                    </tabset>
+                </div>
+          </div>
+             </div>
+        </div>
+    </div>
+</section>

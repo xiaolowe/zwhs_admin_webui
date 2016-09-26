@@ -1,0 +1,349 @@
+<div class="pageheader" >
+                <h1>商品管理</h1>
+                <div class="breadcrumb-wrapper hidden-xs">
+                    <span class="label">你的足迹:</span>
+                    <ol class="breadcrumb">
+                        <li><a href="index.html">商品管理</a>
+                        
+                    </ol>
+                </div>
+            </div>
+
+            <section id="main-content" class="animated fadeInRight" ng-controller="goodslist" >
+                      <div class="row">
+                       <div class="col-md-12">
+                        <div class="panel panel-default">
+                          <div class="panel-heading">
+                            <h3 class="panel-title">商品列表</h3>
+                           
+                          </div>
+                          
+
+       <div class="panel-body" style="" ng-show="detail">           
+                         <div class="panel-body profile-wrapper">
+                            
+                            <div class="col-md-10">
+                                <div class="profile-info user_detail addgoods" >
+                                  <div class="col-md-6">
+                                     商品编号:{{goodsetail.goodsId}}
+                                  </div>
+
+                                  <div class="col-md-6">
+                                     品牌名称:
+                                    
+                                      <select class="pub-select" ng-model="goodsetail.brandNo">
+                                            <option  value="{{items.brandNo}}" ng-repeat="items in brand" >{{items.brandName}}</option>
+                                       </select>
+                                  </div>
+                                  
+                                  <div class="col-md-6">
+                                     商品名称:
+                                        <input class="pub-iput" ng-model="goodsetail.goodsName"  maxlength="20">
+                                  </div>
+                                  <div class="col-md-6">
+                                    规格:<input class="pub-iput" ng-model="goodsetail.goodsSpec">
+                                  </div>
+                                   <div class="col-md-6">
+                                     商品编码: <input class="pub-iput" ng-model="goodsetail.goodsSn" maxlength="20" >
+                                  </div>
+
+                                  <div class="col-md-6">
+                                      状态:<span ng-show="goodsetail.goodsVerify==1">审核通过</span> 
+                                        <span ng-show="goodsetail.goodsVerify==0">未审核</span>
+
+                                     
+                                  </div>
+                                   <div class="col-md-6">
+                                     分类<select class="pub-select" ng-model="pclass" ng-change="getsbclass()">
+                                               <option  value="{{items.gcNo}}" ng-repeat="items in goodsclass" >{{items.gcName}}</option>
+                                       </select>
+                                  </div>
+
+                                  <div class="col-md-6">
+                                      二级分类:<select class="pub-select" ng-model="sclass"  ng-options="x.gcNo as x.gcName for x in sgoodsclass">
+                                            
+                                       </select>
+                                  </div>
+
+                                  
+
+                                  <div class="col-md-6">
+                                      创建人:{{goodsetail.contactsName}}
+                                  </div>
+
+                                  <div class="col-md-6">
+                                      创建时间:{{goodsetail.insDate | date : 'yyyy年MM月dd日 HH:mm'}}
+                                  </div>
+                                    
+                                  <div class="col-md-6">
+                                     商品图片: &nbsp;&nbsp; 
+                                         <img ng-src="{{goodsetail.goodsImage|asImage:'50_50'}}" ng-show='goodsetail.goodsImage' height="50px" >
+                            <a  link="goodsetail.goodsImage" upload-file upload-file hidemy="true" ratio="50_50">上传</a>
+                                  </div>
+
+                                   <div class="col-md-6">
+                                   <!--  商品图片(小图): &nbsp;&nbsp; 
+                                          <img ng-src="{{goodsetail.goodsImageSmall|asImage:'50_50'}}" ng-show='goodsetail.goodsImageSmall' >
+                            <a  link="goodsetail.goodsImageSmall" upload-file>上传</a>-->
+                                  </div>
+
+                                  <div class="col-md-12">
+                                    
+                                      <form class="form-horizontal" novalidate="">
+                                          <div class="ueditor" name="content" config=" {toolbars:[
+                                              ['bold', 'italic', 'underline', 'strikethrough', 'forecolor', 'backcolor', 'justifyleft', 'justifycenter', 'justifyright', '|', 'insertunorderedlist', 'insertorderedlist', 'blockquote', 'emotion', 'uploadimage', 'link', 'removeformat', '|', 'rowspacingtop', 'rowspacingbottom', 'lineheight', 'paragraph', 'fontsize', 'source', 'fullscreen'],
+                                              ['inserttable', 'deletetable', 'insertparagraphbeforetable', 'insertrow', 'deleterow', 'insertcol', 'deletecol', 'mergecells', 'mergeright', 'mergedown', 'splittocells', 'splittorows', 'splittocols']
+                                            ],
+                                                autoClearinitialContent:true,
+                                                wordCount:false,
+                                                elementPathEnabled:false,
+                                                initialFrameWidth:null,
+                                                initialFrameHeight:300,
+                                          }" ng-model="goodsetail.goodsBody" link="goodsdescription" required></div>
+                                        </form>
+                            
+
+                                  </div>
+                                  
+                                  
+
+                                  <div class="col-md-9" ng-show="goodsetail.goodsVerify==0" >
+                                     <button class="btn btn-sm btn-primary " ng-click="check(goodsetail.goodsId)">审核通过</button>
+                                       <button class="btn btn-sm btn-primary " ng-click="uncheck(goodsetail.goodsId)">审核驳回</button>
+                                        <button class="btn btn-sm btn-primary " ng-click="listshow()">返回</button>
+                                  </div>
+
+                                  <div class="col-md-9" ng-show="goodsetail.goodsVerify==1">
+                                      <button class="btn btn-sm btn-primary " ng-click="savegoods(goodsetail.goodsId)">保存</button>
+                                       <button class="btn btn-sm btn-primary " ng-click="listshow()">返回</button>
+                                  </div>
+
+                                 
+                                </div>
+                                  
+                            </div>
+                        </div>
+                   </div>
+                    
+                     <div class="panel-body" style="" ng-show="add">           
+                         <div class="panel-body profile-wrapper">
+                            
+                            <div class="col-md-10 ">
+                                <div class="profile-info user_detail addgoods" >
+                                
+
+                                  <div class="col-md-6">
+                                    品牌名称:&nbsp;<select class="pub-select" ng-model="addbrand_no">
+                                            <option  value="{{items.brandNo}}" ng-repeat="items in brand" >{{items.brandName}}</option>
+                                       </select>
+                                  </div>
+                                  
+                                  <div class="col-md-6">
+                                      商品名称:&nbsp;<input class="pub-iput" ng-model="addgoods_name" maxlength="20" >
+                                  </div>
+
+                                   <div class="col-md-6">
+                                    商品编码:&nbsp;<input class="pub-iput" ng-model="addgoods_sn" maxlength="20" >
+                                  </div>
+
+                                  <div class="col-md-6">
+                                     规&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;格:&nbsp;<input class="pub-iput" ng-model="addgoods_spec">
+                                  </div>
+
+                                 
+                                   <div class="col-md-6">
+                                      分&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;类:&nbsp;<select class="pub-select" ng-model="pclass" ng-change="getsbclass()">
+                                              
+                                                  <option  value="{{items.gcNo}}" ng-repeat="items in goodsclass" >{{items.gcName}}</option>
+                                       </select>
+                                  </div>
+
+                                  <div class="col-md-6">
+                                      二级分类:&nbsp;<select class="pub-select" ng-model="sclass">
+                                            <option  value="{{items.gcNo}}" ng-repeat="items in sgoodsclass" >{{items.gcName}}</option>
+                                       </select>
+                                  </div>
+
+                                  
+
+                              
+                                    
+                                   <div class="col-md-6">
+                                     商品图片: &nbsp;&nbsp;  <img ng-src="{{addimg|asImage:'50_50'}}" ng-show='addimg' height="50px">
+                                      <a  link="addimg" upload-file  upload-file hidemy="true" ratio="50_50">上传图片</a>
+                                     
+                                  </div>
+
+                                   <div class="col-md-6">
+                                    <!--  商品图片(小图): &nbsp;&nbsp;  <img ng-src="{{saddimg|asImage:'50_50'}}" ng-show='saddimg' >
+                                      <a  link="saddimg" upload-file>上传图片</a> -->
+                                     
+                                  </div>
+
+                                  <div class="col-md-12">
+                                    
+                                      <form class="form-horizontal" novalidate="">
+                                          <div class="ueditor" name="content" config=" {toolbars:[
+                                              ['bold', 'italic', 'underline', 'strikethrough', 'forecolor', 'backcolor', 'justifyleft', 'justifycenter', 'justifyright', '|', 'insertunorderedlist', 'insertorderedlist', 'blockquote', 'emotion', 'uploadimage', 'link', 'removeformat', '|', 'rowspacingtop', 'rowspacingbottom', 'lineheight', 'paragraph', 'fontsize', 'source', 'fullscreen'],
+                                              ['inserttable', 'deletetable', 'insertparagraphbeforetable', 'insertrow', 'deleterow', 'insertcol', 'deletecol', 'mergecells', 'mergeright', 'mergedown', 'splittocells', 'splittorows', 'splittocols']
+                                            ],
+                                                autoClearinitialContent:true,
+                                                wordCount:false,
+                                                elementPathEnabled:false,
+                                                initialFrameWidth:null,
+                                                initialFrameHeight:300,
+                                          }" ng-model="addgoodbody" link="goodsdescription" required></div>
+                                        </form>
+
+
+                                  </div>
+                                  
+                                  
+
+
+                                 <div class="col-md-12" style="text-align: center; margin-top: 10px;"> 
+                                    
+                                      <button class="btn btn-sm btn-primary " ng-click="postgoods()">保存</button>&nbsp;&nbsp;
+                                        <button class="btn btn-sm btn-primary " ng-click="listshow()">返回</button>
+                                  </div>
+                                 
+                                </div>
+                                  
+                            </div>
+                        </div>
+                   </div>
+
+
+
+
+                      <div class="panel-body" style="" ng-show="list">
+                                  <div class="tab-wrapper tab-primary" >
+                                      <tabset>
+                                          <tab heading="入库商品"  ng-controller="goodsverify" >
+                                            <div class="table-responsive">
+                                              <div class="col-md-12">
+
+                                               分类:&nbsp;<select class="pub-select" ng-model="gc_no">
+                                                      <option   ></option>
+                                                      <option  value="{{items.gcNo}}" ng-repeat="items in goodsclass" >{{items.gcName}}</option>
+                                                     </select>
+
+                                               品牌:&nbsp;<select class="pub-select" ng-model="brand_no">
+                                                       <option   ></option>
+                                                      <option  value="{{brandlist.brandNo}}" ng-repeat="brandlist in brand" >{{brandlist.brandName}}</option>
+                                                     </select>
+                                                <input type="text" class="pub-iput"  placeholder="输入商品名称" ng-model="goods_name">
+                                                <button class="btn btn-sm btn-primary " class="pub-iput" ng-click='search()'>筛选</button>
+                                                <button class="btn btn-sm btn-primary " class="pub-iput" ng-click='addshow()'>新建商品</button>
+                                              </div>
+                                              <br/>
+                                              <br/>
+
+
+                                               <table id="example" class="table table-striped table-bordered "cellspacing="0" width="100%" >
+                                                    <thead>
+                                                        <tr>
+                                                           <th width="10%">商品编号</th>
+                                                            <th width="15%">入库时间</th>
+                                                            <th width="5%">品牌</th>
+                                                            <th width="40%">商品名称</th>
+                                                            <th width="10%">分类</th>
+                                                            <th width="10%">操作</th>
+                                                           
+                                                        </tr>
+                                                    </thead>
+                                             
+                                                    <tbody>
+                                                        <tr ng-repeat="items in rows">
+                                                            <td>{{items.goodsId}}</td>
+                                                            <td>{{items.insDate| date : 'yyyy年MM月dd日 HH:mm'}}</td>
+                                                            <td>{{items.brandName}}</td>
+                                                            <td>{{items.goodsName}}</td>
+                                                            <td>{{items.gcName}}</td>
+                                                            <td><a><span type="button"  ng-click="detailshow(items.goodsId)">查看详情</button></a></td>
+                                                        </tr>
+
+                                                         <tr ng-show="rows.length==0">
+                                                             <th    colspan="4">没查询到数据</td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                                 <!-- page -->
+                                                    <div>
+                                                        <div uib-pagination total-items="totalItems" ng-model="currentPage" ng-change="pageChanged()" items-per-page="10" max-size="10" template-url="views/page/pagination.html" boundary-links="true"></div>
+                                                      </div>
+                                                  <!-- /page -->
+                                            </div>
+                                          </tab>
+
+                                          <tab heading="待审核商品" ng-controller="goodsstorage" >
+                                            <div class="table-responsive">
+                       <div class="col-md-12">
+
+                                               分类:&nbsp;<select class="pub-select" ng-model="gc_no">
+                                                      <option   ></option>
+                                                      <option  value="{{items.gcNo}}" ng-repeat="items in goodsclass" >{{items.gcName}}</option>
+                                                     </select>
+
+                                               品牌:&nbsp;<select class="pub-select" ng-model="brand_no">
+                                                       <option   ></option>
+                                                      <option  value="{{brandlist.brandNo}}" ng-repeat="brandlist in brand" >{{brandlist.brandName}}</option>
+                                                     </select>
+                                                <input type="text" class="pub-iput"  placeholder="输入商品名称" ng-model="goods_name">
+                                                <button class="btn btn-sm btn-primary " class="pub-iput" ng-click='search()'>筛选</button>
+                                                <button class="btn btn-sm btn-primary " class="pub-iput" ng-click='addshow()'>新建商品</button>
+                                              </div>
+                                                <br/>
+                                                <br/>
+                                                
+                                               <table id="example" class="table table-striped table-bordered "cellspacing="0" width="100%" >
+                                                    <thead>
+                                                        <tr>
+                                                              <th width="10%">商品编号</th>
+                                                            <th width="15%">入库时间</th>
+                                                            <th width="5%">品牌</th>
+                                                            <th width="40%">商品名称</th>
+                                                            <th width="10%">分类</th>
+                                                            <th width="10%">操作</th>
+                                                           
+                                                        </tr>
+                                                    </thead>
+                                             
+                                                    <tbody>
+                                                        <tr ng-repeat="items in rows">
+                                                            <td>{{items.goodsId}}</td>
+                                                            <td>{{items.insDate| date : 'yyyy年MM月dd日 HH:mm'}}</td>
+                                                            <td>{{items.brandName}}</td>
+                                                            <td>{{items.goodsName}}</td>
+                                                            <td>{{items.gcName}}</td>
+                                                            <td><a><span type="button"  ng-click="detailshow(items.goodsId)">查看详情</button></a></td>
+                                                        </tr>
+
+                                                         <tr ng-show="rows.length==0">
+                                                             <th    colspan="4">没查询到数据</td>
+                                                        </tr>
+
+                                                    </tbody>
+                                                </table>
+                                                 <!-- page -->
+                                                    <div>
+                                                        <div uib-pagination total-items="totalItems" ng-model="currentPage" ng-change="pageChanged()" items-per-page="10" max-size="10" template-url="views/page/pagination.html" boundary-links="true"></div>
+                                                      </div>
+                                                  <!-- /page -->
+                                              </div>
+                                          </tab>
+
+                                         
+
+                                      </tabset>
+                                  </div>
+                            </div>
+                        
+
+                        
+                            
+                         
+                     </div>
+                </div>
+            </div>
+              </section>

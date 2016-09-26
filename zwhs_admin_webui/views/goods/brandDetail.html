@@ -1,0 +1,56 @@
+<div class="pageheader" >
+    <h1>商品管理</h1>
+    <div class="breadcrumb-wrapper hidden-xs">
+        <span class="label">你的足迹:</span>
+        <ol class="breadcrumb">
+           
+            <li><a href="">商品品牌管理</a></li>
+            
+        </ol>
+    </div>
+</div>
+
+<section id="main-content" class="animated fadeInRight" ng-controller="brandDetail">
+  <div class="row">
+     <div class="col-md-12">
+        <div class="panel panel-default">
+              <div class="panel-heading">
+                <h3 class="panel-title">品牌详情</h3>
+              </div>
+
+              <div class="panel-body" style="">           
+                 <div class="panel-body profile-wrapper">
+                    
+                    <div class="col-md-10">
+                        <div class="profile-info user_detail" >
+                            <h1>品牌编号:{{brandDetail.brandNo}}</h1>
+                            <h3>品牌名称:{{brandDetail.brandName}}<!--<input type="text" ng-model="brandDetail.brandName">--></h3>
+                            <h3>创建人:{{brandDetail.contactsName}}</h3>
+                            <h3>入库时间:{{brandDetail.insDate| date : 'yyyy年MM月dd日 HH:mm'}}</h3>
+                          
+                            <h3>  货源:
+                              <sapn ng-if="brandDetail.goodsSource==1">国产</sapn>
+                              <sapn ng-if="brandDetail.goodsSource==2">进口</sapn><!--<select name="example_length" aria-controls="example" class="input-sm" ng-model="brandDetail.goodsSource">
+                                <option    value="1">国产</option>
+                                <option    value="2">进口</option>
+                              </select>-->  &nbsp;&nbsp;&nbsp;</h3>
+                          
+   
+
+
+                           <img ng-src="{{brandDetail.brandPic | asImage:'100_100'}}" ng-show='brandDetail.brandPic' height='50px' >
+                           <!-- <a  link="brandDetail.brandPic" upload-file>重新上传</a>-->
+                            <div class="connect">
+                                <!--<button type="button"  ng-click="updateBrand()">保存</button>-->
+                                <a href="" ui-sref="goods.brand" title="首页">返回 </a>
+                            </div>
+                          
+                        </div>
+                    </div>
+                </div>
+                  
+           </div>
+         </div>
+    </div>
+</div>
+</section>

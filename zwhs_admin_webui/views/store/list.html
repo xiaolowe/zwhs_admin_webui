@@ -1,0 +1,455 @@
+<div class="pageheader" >
+  <h1>店铺管理</h1>
+  <div class="breadcrumb-wrapper hidden-xs">
+      <span class="label">你的足迹:</span>
+      <ol class="breadcrumb">
+          <li><a href="index.html">店铺管理</a>
+          
+      </ol>
+  </div>
+</div>
+
+<section id="main-content" class="animated fadeInRight" ng-controller="store" >
+    <div class="row">
+     <div class="col-md-12">
+      <div class="panel panel-default">
+
+
+          <div class="panel-heading"  ng-show="detail">
+            <h3 class="panel-title">店铺详情</h3>
+           
+          </div>
+                  
+
+        <div class="panel-body" ng-show="detail"> 
+                   <table  width="80%">
+                      <tbody style=" line-height: 38px;">
+                      
+                        <tr >
+                            <td>店铺编号&nbsp;:&nbsp;{{ordersDetail.storeId}}</td>
+                            <td>店铺名称&nbsp;:&nbsp;{{ordersDetail.companyName}}</td>
+                        </tr>
+                        <tr >
+                            <td>账&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;号&nbsp;:&nbsp;{{ordersDetail.userPhone}}</td>
+                            <td>创建时间&nbsp;:&nbsp;{{ordersDetail.createTime| date : 'yyyy年MM月dd日 HH:mm:ss'}}</td>
+                        </tr>
+                         
+                         <tr >
+                            <td>联系人&nbsp;&nbsp;&nbsp;:&nbsp;{{ordersDetail.storeUser.userTruename}}</td>
+                            <td>联系电话&nbsp;:&nbsp;&nbsp;{{ordersDetail.userPhone}}</td>
+                        </tr>
+                         <tr >
+                            <td>店主姓名:&nbsp;{{ordersDetail.storeOwner}}</td>
+                            <td>身份证号码:&nbsp;{{ordersDetail.storeOwnerCard}}</td>
+                        </tr>
+                         <tr >
+                            <td>银行卡&nbsp;&nbsp;&nbsp;:&nbsp;{{ordersDetail.bankAccNumber}}</td>
+                            <td>持&nbsp;卡&nbsp;人&nbsp;:&nbsp;{{ordersDetail.bankOwner}}</td>
+                        </tr>
+                         <tr >
+                            <td>开户行&nbsp;&nbsp;&nbsp;:&nbsp;{{ordersDetail.bankAccName}}</td>
+                            <td ng-show="ordersDetail.storeState>=1">状&nbsp;&nbsp;&nbsp;态&nbsp;: &nbsp;
+                              <select name="example_length" aria-controls="example" class="input-sm" ng-model="ordersDetail.storeState">
+                                <option value="1">正常</option>
+                                <option value="3">冻结</option>
+                              </select></td>
+                              <td ng-show="ordersDetail.storeState==0">状&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;态&nbsp;: 待审核 
+                              </td>
+                        </tr>
+
+                         <tr >
+                            <td >邮&nbsp;&nbsp;&nbsp;箱&nbsp;:
+                              {{ordersDetail.storeUser.userEmail}}
+                            </td>
+                            <td >营业执照号码:
+                              {{ordersDetail.businessLicence}}
+                            </td>
+                        </tr>
+
+                         <tr >
+                            <td>店铺等级&nbsp;:&nbsp;
+                              <select  class="input-sm pub-select" ng-model="ordersDetail.sgId" ng-change="getnewdj(ordersDetail.sgId)">
+                                  <option  value="{{Divides.sgId}}" ng-repeat="Divides in Divide" >{{Divides.sgName}}</option>
+                              </select>
+                             
+                            </td>
+                            <td ng-show="dengji.commisRates">平台提成&nbsp;:&nbsp;{{dengji.commisRates}}%</td>
+                            <td ng-show="!dengji.commisRates">平台提成&nbsp;:&nbsp;{{newdengji}}%</td>
+                        </tr>
+
+
+                        <tr >
+                              <td colspan="2" ng-show="ordersDetail.storeState==0" > 
+                                所在省&nbsp;:&nbsp;{{ordersDetail.regionProvName}}&nbsp;&nbsp;&nbsp;&nbsp;
+                                所在市&nbsp;:&nbsp;{{ordersDetail.regionCityName}}&nbsp;&nbsp;&nbsp;&nbsp;
+                                所在区&nbsp;:&nbsp;{{ordersDetail.regionAreaName}}&nbsp;&nbsp;&nbsp;&nbsp;
+                             </td>
+
+                              <td colspan="2" ng-show="ordersDetail.storeState>=1" > 
+                              所在省&nbsp;:&nbsp;<select  class="input-sm pub-select" ng-model="pregioning" ng-change="getCity()"  
+                                ng-options="A.regionCode as A.regionName for A in regionInfo"
+                              >
+                                   
+                              </select> &nbsp;&nbsp;&nbsp;
+                              所在市&nbsp;:&nbsp;<select  class="input-sm pub-select" ng-model="pcitying" ng-change="getArea()"
+                              ng-options="C.regionCode as C.regionName for C in citys">
+                                
+                               </select>&nbsp;&nbsp;&nbsp;{{pcitying}}
+                              所在区&nbsp;:&nbsp;
+                              <select  class="input-sm pub-select" ng-model="pareaing"  ng-options="x.regionCode as x.regionName for x in getAreas">
+                                
+                               
+                              </select>&nbsp;&nbsp;&nbsp;{{pareaing}}</td>
+                            
+                        </tr>
+
+
+
+                        <tr >
+                            <td colspan="2">法人身份证:
+                              <A ng-show="ordersDetail.ownerCardFront" ng-click="openImage(ordersDetail.ownerCardFront)">查看图片</A>
+                              <span ng-show="!ordersDetail.ownerCardFront" >未上传图片</span>
+                            </td>
+                        </tr>
+                        <tr >
+                            <td colspan="2">税务登记证:
+                              <A ng-show="ordersDetail.taxRegCert" ng-click="openImage(ordersDetail.taxRegCert)">查看图片</A>
+                              <span ng-show="!ordersDetail.taxRegCert" >未上传图片</span>
+                            </td>
+                        </tr>
+
+                         <tr >
+                            <td colspan="2">组织机构代码证:
+                              <A ng-show="ordersDetail.organizationCode" ng-click="openImage(ordersDetail.organizationCode)">查看图片</A>
+                              <span ng-show="!ordersDetail.organizationCode" >未上传图片</span>
+                            </td>
+                        </tr>
+
+                        <tr >
+                            <td colspan="2">经营照片:
+                              <A  ng-show="ordersDetail.storeImage" ng-click="openImage(ordersDetail.storeImage)">查看图片</A>
+                              <span ng-show="!ordersDetail.storeImage" >未上传图片</span>
+                            </td>
+                        </tr>
+
+                        <tr >
+                          <td td colspan="2" ng-show="ordersDetail.storeState==0" style="text-align: center;">
+                              <button type="button" class="btn btn-sm btn-primary" ng-click="passordersDetail(ordersDetail.storeId)">通过</button>
+                              <button type="button" class="btn  btn-sm btn-info" ng-click="turnordersDetail(ordersDetail.storeId)">驳回</button>
+                                 <button type="button" class="btn btn-sm btn-info btn-success btn-trans" ng-click="listshow()">返回</button>
+                            </td>
+                         </tr>
+                        
+                         <tr >
+
+                          <td td colspan="2" ng-show="ordersDetail.storeState>=1" style="text-align: center;">
+                             <button type="button" class="btn btn-sm btn-info" ng-click="saveordersDetail(ordersDetail.storeId)">修改</button>  
+                               <button type="button" class="btn btn-sm  btn-info btn-success btn-trans" ng-click="listshow()">返回</button>
+                          </td>
+                         </tr>
+                      </tbody>
+                  </table>
+                
+                 
+        </div>
+
+
+
+      
+      <div class="panel-heading"  ng-show="list">
+            <h3 class="panel-title">店铺列表</h3>
+           
+          </div>                     
+                 
+    <div class="panel-body" ng-show="list">
+                <div class="tab-wrapper tab-primary" >
+                    <tabset>
+                        <tab heading="全部"  ng-controller="storelistall" >
+                          <div class="table-responsive">
+                            <div class="col-md-12">
+
+                             所在省: &nbsp;
+                             <select class="pub-select" ng-model="regioning" ng-change="getCity()" 
+                             >
+                                    <option value="">所有省</option>
+                                   <option  value="{{items.regionCode}}" ng-repeat="items in regionInfo" >{{items.regionName}}</option>
+                              </select>
+                            &nbsp; &nbsp;
+                             所在市: &nbsp;<select  class="pub-select" ng-model="citying" >   
+                                  <option value="">所有市</option>
+                                  <option  value="{{city.regionCode}}" ng-repeat="city in citys" >{{city.regionName}}</option>
+                                </select>
+                              &nbsp; &nbsp;
+                              <input type="text"   placeholder="输入母婴店名称" ng-model="company_name" class="pub-iput"> &nbsp; &nbsp;
+                              <button class="btn btn-sm btn-primary " ng-click='search()'>查询店铺</button>
+                              
+                
+                         <a ng-href="{{excel}}/store/downloadExcel?province_id={{regioning}}&city_id={{citying}}&company_name={{company_name}}&Authorization={{token}}" target="_blank" ><button type="button" class="btn btn-sm  btn-info" >下载报表</button></a>
+                         <a  href="#" ui-sref="store.add" title="新增平台母婴店铺"><button class="btn btn-sm  btn-success" >新增平台母婴店铺</button></a>
+                            </div>
+                            <br/>
+                            <br/>
+
+
+                             <table id="example" class="table table-striped table-bordered "cellspacing="0" width="100%" >
+                                  <thead>
+                                      <tr>
+                                          <th>母婴店编号</th>
+                                          <th>注册时间</th>
+                                          
+                                          <th>母婴店名称</th>
+                                          <th>所在省</th>
+                                          <th>所在市</th>
+                                          <th>联系人</th>
+                                          <th>操作</th>
+                                          
+                                      </tr>
+                                  </thead>
+                           
+                                  <tbody>
+                                      <tr ng-repeat="items in rows">
+                                          <td>{{items.storeId}}</td>
+                                          <td>{{items.createTime| date : 'yyyy年MM月dd日 HH:mm:ss'}}</td>
+                                          
+                                          <td>{{items.companyName}}</td>
+                                          <td>{{items.provinceName.regionName}}</td>
+                                          <td>{{items.cityName.regionName}}</td>
+                                          <td>{{items.storeUser.userTruename}}</td>
+                                   
+                                          <td><a><span type="button" ng-hide="items.storeType==1"     ng-click="detailshow(items.storeId)">查看详情</button></a>
+                                           	<a><span type="button" ng-show="items.storeType==1"   ng-click="ptshow(items.storeId)">查看详情</button></a>
+                                           </td>
+                                      </tr>
+                                      <tr ng-show="rows.length==0">
+                                                 <th    colspan="7">没有筛选出符合条件的店铺</td>
+                                      </tr>
+                                  </tbody>
+                              </table>
+                               <!-- page -->
+                                  <div>
+                                      <div uib-pagination total-items="totalItems" ng-model="currentPage" ng-change="pageChanged()" items-per-page="10" max-size="10" template-url="views/page/pagination.html" boundary-links="true"></div>
+                                    </div>
+                                <!-- /page -->
+                          </div>
+                        </tab>
+
+                        <tab heading="待审核"  ng-controller="storelist0" >
+                          <div class="table-responsive">
+                            <div class="col-md-12">
+                            所在省: &nbsp;
+                             <select class="pub-select" ng-model="regioning" ng-change="getCity()" 
+                             >
+                                    <option value="">所有省</option>
+                                   <option  value="{{items.regionCode}}" ng-repeat="items in regionInfo" >{{items.regionName}}</option>
+                              </select>
+                            &nbsp; &nbsp;
+                             所在市: &nbsp;<select  class="pub-select" ng-model="citying" >   
+                                  <option value="">所有市</option>
+                                  <option  value="{{city.regionCode}}" ng-repeat="city in citys" >{{city.regionName}}</option>
+                                </select>
+                              &nbsp; &nbsp;
+                              <input type="text"   placeholder="输入母婴店名称" ng-model="company_name" class="pub-iput"> &nbsp; &nbsp;
+                              <button class="btn btn-sm btn-primary " ng-click='search()'>查询店铺</button>
+                              
+                      
+                         <a ng-href="{{excel}}/store/downloadExcel?province_id={{regioning}}&city_id={{citying}}&company_name={{company_name}}&store_state=0&Authorization={{token}}" target="_blank" ><button type="button" class="btn btn-sm  btn-info" >下载报表</button></a>
+                          <a  href="#" ui-sref="store.add" title="新增平台母婴店铺"><button class="btn btn-sm  btn-success" >新增平台母婴店铺</button></a>
+                            </div>
+                            <br/>
+                            <br/>
+
+
+                             <table id="example" class="table table-striped table-bordered "cellspacing="0" width="100%" >
+                                  <thead>
+                                      <tr>
+                                          <th>母婴店编号</th>
+                                          <th>注册时间</th>
+                                          
+                                          <th>母婴店名称</th>
+                                          <th>所在省</th>
+                                          <th>所在市</th>
+                                          <th>联系人</th>
+                                          <th>操作</th>
+                                          
+                                      </tr>
+                                  </thead>
+                           
+                                  <tbody>
+                                      <tr ng-repeat="items in rows">
+                                          <td>{{items.storeId}}</td>
+                                          <td>{{items.createTime| date : 'yyyy年MM月dd日 HH:mm:ss'}}</td>
+                                          
+                                          <td>{{items.companyName}}</td>
+                                           <td>{{items.provinceName.regionName}}</td>
+                                          <td>{{items.cityName.regionName}}</td>
+                                          <td>{{items.storeUser.userTruename}}</td>
+                                     
+                                         <td><a><span type="button" ng-hide="items.storeType==1"     ng-click="detailshow(items.storeId)">查看详情</button></a>
+                                           	<a><span type="button" ng-show="items.storeType==1"   ng-click="ptshow(items.storeId)">查看详情</button></a>
+                                           </td>
+                                      </tr>
+                                       <tr ng-show="rows.length==0">
+                                                 <th    colspan="7">没有筛选出符合条件的店铺</td>
+                                      </tr>
+                                  </tbody>
+                              </table>
+                               <!-- page -->
+                                  <div>
+                                      <div uib-pagination total-items="totalItems" ng-model="currentPage" ng-change="pageChanged()" items-per-page="10" max-size="10" template-url="views/page/pagination.html" boundary-links="true"></div>
+                                    </div>
+                                <!-- /page -->
+                          </div>
+                        </tab>
+
+                      <tab heading="正常"  ng-controller="storelist1" >
+                          <div class="table-responsive">
+                            <div class="col-md-12">
+
+                             所在省: &nbsp;
+                             <select class="pub-select" ng-model="regioning" ng-change="getCity()" 
+                             >
+                                    <option value="">所有省</option>
+                                   <option  value="{{items.regionCode}}" ng-repeat="items in regionInfo" >{{items.regionName}}</option>
+                              </select>
+                            &nbsp; &nbsp;
+                             所在市: &nbsp;<select  class="pub-select" ng-model="citying" >   
+                                  <option value="">所有市</option>
+                                  <option  value="{{city.regionCode}}" ng-repeat="city in citys" >{{city.regionName}}</option>
+                                </select>
+                              &nbsp; &nbsp;
+                              <input type="text"   placeholder="输入母婴店名称" ng-model="company_name" class="pub-iput"> &nbsp; &nbsp;
+                              <button class="btn btn-sm btn-primary " ng-click='search()'>查询店铺</button>
+                              
+                      
+                      <a ng-href="{{excel}}/store/downloadExcel?province_id={{regioning}}&city_id={{citying}}&company_name={{company_name}}&store_state=1&Authorization={{token}}" target="_blank" ><button type="button" class="btn btn-sm  btn-info" >下载报表</button></a>
+                       <a  href="#" ui-sref="store.add" title="新增平台母婴店铺"><button class="btn btn-sm  btn-success" >新增平台母婴店铺</button></a>
+                            </div>
+                            <br/>
+                            <br/>
+
+
+                             <table id="example" class="table table-striped table-bordered "cellspacing="0" width="100%" >
+                                  <thead>
+                                      <tr>
+                                          <th>母婴店编号</th>
+                                          <th>注册时间</th>
+                                          
+                                          <th>母婴店名称</th>
+                                          <th>所在省</th>
+                                          <th>所在市</th>
+                                          <th>联系人</th>
+                                          <th>操作</th>
+                                          
+                                      </tr>
+                                  </thead>
+                           
+                                  <tbody>
+                                      <tr ng-repeat="items in rows">
+                                          <td>{{items.storeId}}</td>
+                                          <td>{{items.createTime| date : 'yyyy年MM月dd日 HH:mm:ss'}}</td>
+                                          
+                                         <td>{{items.companyName}}</td>
+                                           <td>{{items.provinceName.regionName}}</td>
+                                          <td>{{items.cityName.regionName}}</td>
+                                          <td>{{items.storeUser.userTruename}}</td>
+                                     
+                                         <td><a><span type="button" ng-hide="items.storeType==1"     ng-click="detailshow(items.storeId)">查看详情</button></a>
+                                           	<a><span type="button" ng-show="items.storeType==1"   ng-click="ptshow(items.storeId)">查看详情</button></a>
+                                           </td>
+                                      </tr>
+                                       <tr ng-show="rows.length==0">
+                                                 <th    colspan="7">没有筛选出符合条件的店铺</td>
+                                      </tr>
+                                  </tbody>
+                              </table>
+                               <!-- page -->
+                                  <div>
+                                      <div uib-pagination total-items="totalItems" ng-model="currentPage" ng-change="pageChanged()" items-per-page="10" max-size="10" template-url="views/page/pagination.html" boundary-links="true"></div>
+                                    </div>
+                                <!-- /page -->
+                          </div>
+                        </tab>
+
+                       <tab heading="冻结"  ng-controller="storelist2" >
+                          <div class="table-responsive">
+                            <div class="col-md-12">
+
+                            所在省: &nbsp;
+                             <select class="pub-select" ng-model="regioning" ng-change="getCity()" 
+                             >
+                                    <option value="">所有省</option>
+                                   <option  value="{{items.regionCode}}" ng-repeat="items in regionInfo" >{{items.regionName}}</option>
+                              </select>
+                            &nbsp; &nbsp;
+                             所在市: &nbsp;<select  class="pub-select" ng-model="citying" >   
+                                  <option value="">所有市</option>
+                                  <option  value="{{city.regionCode}}" ng-repeat="city in citys" >{{city.regionName}}</option>
+                                </select>
+                              &nbsp; &nbsp;
+                              <input type="text"   placeholder="输入母婴店名称" ng-model="company_name" class="pub-iput"> &nbsp; &nbsp;
+                              <button class="btn btn-sm btn-primary " ng-click='search()'>查询店铺</button>
+                              
+                      
+     <a ng-href="{{excel}}/store/downloadExcel?province_id={{regioning}}&city_id={{citying}}&company_name={{company_name}}&store_state=3&Authorization={{token}}" target="_blank" ><button type="button" class="btn btn-sm  btn-info" >下载报表</button></a>
+      <a  href="#" ui-sref="store.add" title="新增平台母婴店铺"><button class="btn btn-sm  btn-success" >新增平台母婴店铺</button></a>
+                              
+                            </div>
+                            <br/>
+                            <br/>
+
+
+                             <table id="example" class="table table-striped table-bordered "cellspacing="0" width="100%" >
+                                  <thead>
+                                      <tr>
+                                          <th>母婴店编号</th>
+                                          <th>注册时间</th>
+                                          
+                                          <th>母婴店名称</th>
+                                          <th>所在省</th>
+                                          <th>所在市</th>
+                                          <th>联系人</th>
+                                          <th>操作</th>
+                                          
+                                      </tr>
+                                  </thead>
+                           
+                                  <tbody>
+                                      <tr ng-repeat="items in rows">
+                                          <td>{{items.storeId}}</td>
+                                          <td>{{items.createTime| date : 'yyyy年MM月dd日 HH:mm:ss'}}</td>
+                                          
+                                         <td>{{items.companyName}}</td>
+                                          <td>{{items.provinceName.regionName}}</td>
+                                          <td>{{items.cityName.regionName}}</td>
+                                          <td>{{items.storeUser.userTruename}}</td>
+                                     
+                                           <td><a><span type="button" ng-hide="items.storeType==1"     ng-click="detailshow(items.storeId)">查看详情</button></a>
+                                           	<a><span type="button" ng-show="items.storeType==1"   ng-click="ptshow(items.storeId)">查看详情</button></a>
+                                           </td>
+                                      </tr>
+
+                                       <tr ng-show="rows.length==0">
+                                                 <th    colspan="7">没有筛选出符合条件的店铺</td>
+                                      </tr>
+                                  </tbody>
+                              </table>
+                               <!-- page -->
+                                  <div>
+                                      <div uib-pagination total-items="totalItems" ng-model="currentPage" ng-change="pageChanged()" items-per-page="10" max-size="10" template-url="views/page/pagination.html" boundary-links="true"></div>
+                                    </div>
+                                <!-- /page -->
+                          </div>
+                        </tab>
+
+                    </tabset>
+                </div>
+          </div>
+      
+
+                
+                    
+                 
+             </div>
+        </div>
+    </div>
+</section>

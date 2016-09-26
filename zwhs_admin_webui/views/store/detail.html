@@ -1,0 +1,194 @@
+<div class="pageheader" >
+                <h1>店铺详情</h1>
+                <div class="breadcrumb-wrapper hidden-xs">
+                    <span class="label">你的足迹:</span>
+                    <ol class="breadcrumb">
+                        <li><a href="index.html">店铺列表</a></li>
+                        <li><a href="index.html">店铺详情</a></li>
+                        
+                    </ol>
+                </div>
+            </div>
+
+
+            <section id="main-content" class="animated fadeInRight" ng-controller="ordersDetail">
+                      <div class="row">
+                       <div class="col-md-12">
+                        <div class="panel panel-default">
+                          <div class="panel-heading">
+                            <h3 class="panel-title">店铺详情</h3>{{ordersDetail.storeState}}
+                           
+                          </div>
+                          
+
+                          <div class="panel-heading">
+                            <div class="row" style="line-height: 30px;padding-left: 10px;">
+
+                              <table id="example"  width="60%">
+                                <tbody>
+                                       <tr>
+                                            <td>母婴店编号:</td>
+                                            <td>{{ordersDetail.storeId}}</td>
+                                            <td>母婴店名称:</td>
+                                            <td>{{ordersDetail.companyName}}</td>
+                                        </tr>
+
+                                        <tr>
+                                            <td>账号:</td>
+                                            <td>13856093211</td>
+                                            <td>创建时间:</td>
+                                            <td>{{ordersDetail.inDae}}</td>
+                                        </tr>
+
+                                        <tr>
+                                            <td>联系人:</td>
+                                            <td>吴俊</td>
+                                            <td>联系电话:</td>
+                                            <td>15755116364</td>
+                                        </tr>
+
+                                         <tr>
+                                            <td>传真</td>
+                                            <td>-</td>
+                                            <td>邮箱:</td>
+                                            <td>xmm203@qq.com</td>
+                                        </tr>
+
+                                        <tr>
+                                            <td>店主姓名</td>
+                                            <td>吴俊</td>
+                                            <td>店主身份证号码:</td>
+                                            <td>340103198811084519</td>
+                                        </tr>
+
+                                         <tr>
+                                            <td>银行卡</td>
+                                            <td>6225 7573 0080 1728</td>
+                                            <td>开户人</td>
+                                            <td>吴俊</td>
+                                        </tr>
+
+                                        <tr>
+                                            <td>开户行</td>
+                                            <td colspan="3">建设银行 安徽梅山路支行</td>
+                                        </tr>
+                                        
+                       
+                                         <tr ng-show="ordersDetail.storeState==0">
+                                            <td>状态</td>
+                                            <td colspan="3">
+                                              待审核
+                                            </td>
+                                        </tr>
+                                         <tr ng-show="ordersDetail.storeState>=1">
+                                            <td>状态</td>
+                                            <td colspan="3">
+                                              <select name="example_length" aria-controls="example" class="input-sm" ng-model="ordersDetail.storeState">
+                                                <option value="1">正常</option>
+                                                <option value="2">冻结</option>
+                                              </select>
+                                            </td>
+                                        </tr>
+                                       
+                                       
+                                         <tr>
+                                            <td>母婴店等级:</td>
+                                            <td>
+                                               <select  name="example_length" aria-controls="example" class="input-sm"><option value="10">10</option><option value="25">25</option><option value="50">50</option><option value="100">100</option></select>       
+                                            </td>
+                                            <td>平台提成</td>
+                                            <td></td>{{}}
+                                        </tr>
+                                       
+
+                                         <tr>
+                                            <td colspan="4">
+                                              所在省:<select name="example_length" aria-controls="example" class="input-sm" ng-model="regioning" ng-change="getCity()">
+                                                <option></option>
+                                                 <option  value="{{items.regionCode}}" ng-repeat="items in regionInfo" >{{items.regionName}}</option>
+                                                </select> &nbsp;&nbsp;&nbsp;
+                                              所在市:<select name="example_length" aria-controls="example" class="input-sm"
+                             ng-model="citying" ng-change="getArea()">
+                                              <option  value="{{city.regionCode}}" ng-repeat="city in citys" >{{city.regionName}}</option>
+                                        </select>&nbsp;&nbsp;&nbsp;
+                                              所在区:<select name="example_length" aria-controls="example" class="input-sm"
+                              ng-model="areaing">
+                                              <option  value="{{Area.regionCode}}" ng-repeat="Area in getAreas" >{{Area.regionName}}</option>
+                                        </select>&nbsp;&nbsp;&nbsp;
+                                            </td>
+                                            
+                                        </tr>
+
+                                        <tr>
+                                            <td>母婴店地址</td>
+                                            <td colspan="3">已上传&nbsp;&nbsp;<A>查看图片</A></td>
+                                        </tr>
+
+
+                                        <tr>
+                                            <td>店主身份</td>
+                                            <td colspan="3">已上传&nbsp;&nbsp;<A>查看图片</A></td>
+                                        </tr>
+
+                                        <tr>
+                                            <td>营业执照</td>
+                                            <td colspan="3">已上传&nbsp;&nbsp;<A>查看图片</A></td>
+                                        </tr>
+
+                                        <tr>
+                                            <td>经营地点照片</td>
+                                            <td colspan="3">已上传&nbsp;&nbsp;<A>查看图片</A></td>
+                                        </tr>
+
+                                        <tr>
+                                            <td></td>
+                                            <td ></td>
+                                            <td ></td>
+                                            <td ng-show="ordersDetail.storeState==0">
+                                              <button type="button" class="btn btn-primary" ng-click="details('lg')">通过</button>
+                                              <button type="button" class="btn btn-info" ng-click="stoty('lg')">驳回</button>
+                                            </td>
+                                        </tr>
+                                        
+                                        <tr>
+                                            <td></td>
+                                            <td ></td>
+                                            <td ></td>
+                                            <td ng-show="ordersDetail.storeState>=1">
+                                              <button type="button" class="btn btn-info" ng-click="details('lg')">保存</button>
+                                            </td>
+                                        </tr>
+
+
+
+
+
+
+                                     </tbody>
+                                  </table>
+
+                                   
+
+                                     
+                              </div>
+                          </div>
+                         
+
+                        
+                        
+                            
+                          <div class="panel-body" style="">           
+                            
+                             
+                                  <div class="tab-wrapper tab-primary" >
+                                     
+                                  </div>
+                              
+                          
+                         
+
+                       </div>
+                     </div>
+                </div>
+            </div>
+        </section>

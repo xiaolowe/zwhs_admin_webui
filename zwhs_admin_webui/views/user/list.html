@@ -1,0 +1,141 @@
+<div class="pageheader" >
+                <h1>会员管理</h1>
+                <div class="breadcrumb-wrapper hidden-xs">
+                    <span class="label">你的足迹:</span>
+                    <ol class="breadcrumb">
+                        <li><a href="index.html">会员管理</a>
+                        
+                    </ol>
+                </div>
+            </div>
+
+  <section id="main-content" class="animated fadeInRight" ng-controller="usrsList">
+            <div class="row">
+             <div class="col-md-12">
+              <div class="panel panel-default">
+                <div class="panel-heading">
+                  <h3 class="panel-title">会员管理</h3>
+                 
+                </div>
+                <div class="panel-body profile-wrapper"ng-show="de">
+                                <div class="col-md-3">
+                                    <div class="profile-pic text-center">
+                                        <img src="{{userDetail.memberAvatar}}" alt="" class="img-circle" width="165px">
+                                    </div>
+                                </div>
+                                <div class="col-md-9">
+                                    <div class="profile-info user_detail" >
+                                        <h1>微信昵称:{{userDetail.wechatAliasname}}</h1>
+                                     
+                                        <h3>会员ID:{{userDetail.openId}}</h3>
+                                        <h3>会员编号:{{userDetail.memberId}}</h3>
+                                       <!-- <h3>状态:<a href="#"> <i class="fa fa-bookmark danger-color"></i>{{userDetail.memberState}}</a></h3>-->
+                                        <h3>注册时间:{{userDetail.insDate| date : 'yyyy年MM月dd日 HH:mm'}}</h3>
+                                        <h3>所在地:{{userDetail.regionProvName+"省"+userDetail.regionCityName+'市'}}</h3>
+                                        
+                                       <table  cellspacing="0" width="80%"  ng-show="userDetail.wechatMemberAddrs.length >=1">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>联系人</th>
+                                                            <th>联系方式</th>
+                                                            <th>联系地址</th>
+                                                            
+                                                            
+                                                        </tr>
+                                                    </thead>
+                                             
+                                
+                                                        <tr ng-repeat="item in userDetail.wechatMemberAddrs">
+                                                            <td >{{item.contactsName}}</td>
+                                                            <td >{{item.contactsPhone}}</td>
+                                                            <td>{{item.contactsAddress}}</td>
+                                                         </tr>
+                                                    </tbody><!--  -->
+                                                </table>
+                                       
+                                        <div class="connect">
+                                            <button type="button" ng-click="listshow()" class="btn btn-success btn-trans"> 返回</button>
+                                            
+                                        </div>
+                                        
+                                    </div>
+                                </div>
+                            </div>       
+                            
+                             
+
+                <div class="panel-heading" ng-show="list">
+                  <div class="row">
+                         <div class="col-sm-12">
+                      
+                            <!--      省:
+                             <select name="example_length" aria-controls="example" class="input-sm" ng-model="regioning" ng-change="getCity()">
+                                    <option></option>
+                                    <option  value="{{items.regionCode}}" ng-repeat="items in regionInfo" >{{items.regionName}}</option>
+                              </select>
+
+                             市:<select name="example_length" aria-controls="example" class="input-sm"
+                             ng-model="citying" >
+                                   
+                                  <option  value="{{city.regionCode}}" ng-repeat="city in citys" >{{city.regionName}}</option>
+                                   </select>
+                                  -->
+
+                            <input type="text"  class="pub-iput" placeholder="输入会员名" ng-model="wechat_aliasname">
+                           <button type="button" class="btn btn-sm btn-primary" ng-click="search()">搜索</button>
+                           <a ng-href="{{excel}}/wechatmember/downloadExcel?Authorization={{token}}" target="_blank">
+                            <button type="button" class="btn btn-sm btn-info" >下载报表</button></a>
+                        </div>
+                        
+                    </div>
+                </div>
+               
+
+              
+              
+                  
+                <div class="panel-body" style="" ng-show="list">
+                   <table id="example" class="table table-striped table-bordered "cellspacing="0" width="100%">
+                        <thead>
+                            <tr>
+                                <th>会员编号</th>
+                                <th>注册时间</th>
+                                <th>微信昵称</th>
+                               <th>所在省</th>
+                                <th>所在市</th> <!---->
+                                <th>操作</th>
+                                
+                            </tr>
+                        </thead>
+                 
+                        <tbody>
+                            <tr  ng-repeat="item in rows">
+                                <td>{{item.memberId}}</td>
+                                <td>{{item.insDate| date : 'yyyy年MM月dd日 HH:mm'}}</td>
+                                <td>{{item.wechatAliasname}}</td>
+                                <td><span ng-show="item.regionProvName">{{item.regionProvName}}省</span>
+                                  <span ng-show="!item.regionProvName">-</span>
+
+                                </td><!---->
+                                <td><span ng-show="item.regionCityName">{{item.regionCityName}}市</span>
+                                  <span ng-show="!item.regionCityName">-</span>
+                                </td>
+                               
+                               
+                                <td><a><span type="button"  ng-click=" userDetails(item.memberId)">查看详情</button></a></td>
+                            </tr>
+                            <tr ng-show="rows.length==0">
+                                     <th colspan="5">没查询到数据</td>
+                             </tr>
+                        </tbody>
+                    </table>
+                      <!-- page -->
+                        <div>
+                            <div uib-pagination total-items="totalItems" ng-model="currentPage" ng-change="pageChanged()" items-per-page="10" max-size="10" template-url="views/page/pagination.html" boundary-links="true"></div>
+                          </div>
+                      <!-- /page -->
+                  </div>
+           </div>
+      </div>
+  </div>
+</section>

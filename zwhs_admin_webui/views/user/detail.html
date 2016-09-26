@@ -1,0 +1,79 @@
+<div class="pageheader" >
+                <h1>会员管理</h1>
+                <div class="breadcrumb-wrapper hidden-xs">
+                    <span class="label">你的足迹:</span>
+                    <ol class="breadcrumb">
+                        <li><a href="index.html">会员管理</a></li>
+                        <li><a href="index.html">会员详情</a></li>
+                        
+                    </ol>
+                </div>
+            </div>
+
+            <section id="main-content" class="animated fadeInRight" ng-controller="userDetail">
+                      <div class="row">
+                       <div class="col-md-12">
+                        <div class="panel panel-default">
+                          <div class="panel-heading">
+                            <h3 class="panel-title">会员详情</h3>
+                           
+                          </div>
+                        
+                        
+                            
+                          <div class="panel-body" style="">           
+                            
+                             <div class="panel-body profile-wrapper">
+                                <div class="col-md-2">
+                                    <div class="profile-pic text-center">
+                                        
+                                    </div>
+                                </div>
+                                <div class="col-md-10">
+                                    <div class="profile-info user_detail" >
+                                        <h1>微信昵称:{{userDetail.wechatAliasname}}</h1>
+                                        <h3>微信号:{{userDetail.wechatNo}}</h3>
+                                        <h3>会员ID:{{userDetail.openId}}</h3>
+                                        <h3>会员编号:{{userDetail.memberId}}</h3>
+                                        <h3>状态:<a href="#"> <i class="fa fa-bookmark danger-color"></i>{{userDetail.memberState}}</a></h3>
+                                        <h3>注册时间:{{userDetail.insDate| date : 'yyyy-MM-dd'}}</h3>
+                                        <h3>所在地:{{userDetail.regionCityName+userDetail.regionCityName}}</h3>
+                                        
+                                       <table  cellspacing="0" width="60%">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>联系人</th>
+                                                            <th>联系方式</th>
+                                                            <th>联系地址</th>
+                                                            
+                                                            
+                                                        </tr>
+                                                    </thead>
+                                             
+                                                  <!--  <tbody>
+                                                        <tr>
+                                                            <td >吴俊</td>
+                                                            <td >1388888888</td>
+                                                            <td>合肥市国购广场</td>
+                                                           
+                                                        </tr>
+                                                    </tbody>-->
+                                                </table>
+                                       
+                                        <div class="connect">
+                                            <button type="button" class="btn btn-success btn-trans"><span class="fa fa-check"></span> 正常</button>
+                                            
+                                        </div>
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                              
+                          
+                         
+
+                       </div>
+                     </div>
+                </div>
+            </div>
+        </section>

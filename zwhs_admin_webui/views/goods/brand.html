@@ -1,0 +1,69 @@
+<div class="pageheader" >
+    <h1>品牌管理</h1>
+    <div class="breadcrumb-wrapper hidden-xs">
+        <span class="label">你的足迹:</span>
+        <ol class="breadcrumb">
+            <li><a href="index.html">品牌列表</a>
+            
+        </ol>
+    </div>
+</div>
+
+<section id="main-content" class="animated fadeInRight"  ng-controller="brandList" >
+   <div class="row">
+    <div class="col-md-12">
+      <div class="panel panel-default">
+            <div class="panel-heading">
+              <h3 class="panel-title">品牌管理</h3>
+             
+            </div>
+            
+
+              <div class="panel-heading">
+                <div class="row">
+                       <div class="col-sm-12">
+                          <input type="text" placeholder="输入品牌名称"  class="pub-iput"  ng-model="brand_name">
+                         <button type="button" class="btn btn-sm btn-primary" ng-click="search()">搜索</button>
+                        <A ui-sref="goods.addBrand" title="首页"> <button type="button" class="btn btn-sm btn-primary" >新增</button></A>
+                      </div>
+                  </div>
+              </div>
+                  <div class="panel-body" style="">
+                       <table id="example" class="table table-striped table-bordered "cellspacing="0" width="100%">
+                            <thead>
+                                <tr>
+                                    <th>品牌编号</th>
+                                    <th>入库时间</th>
+                                    <th>品牌名称</th>
+                                    <th>LOGO</th>
+                                    <th>状态</th>
+                                    <th>操作</th>
+                                    
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="a in rows">
+                                    <td>{{a.brandNo}}</td>
+                                    <td>{{a.insDate|date : 'yyyy年MM月dd日 HH:mm'}}</td>
+                                    <td>{{a.brandName}}</td>
+                                    <td     width="100px"> 
+                                       <img ng-src="{{a.brandPic | asImage:'50_50'}}" ng-show="a.brandPic" height='50px' width="50px">
+                                       
+                                    </td>
+                                    <td>正常</td>
+                                       <td><a><span type="button"  ng-click="adminDetails(a.brandNo)">查看详情</button></a></td>
+                                    
+                                </tr>
+                            </tbody>
+                    </table>
+                      <!-- page -->
+                        <div>
+                          <div uib-pagination total-items="totalItems" ng-model="currentPage" ng-change="pageChanged()" items-per-page="10" max-size="10" template-url="views/page/pagination.html" boundary-links="true"></div>
+                        </div>
+                      <!-- /page -->
+               </div>
+
+      </div>
+    </div>
+  </div>
+</section>

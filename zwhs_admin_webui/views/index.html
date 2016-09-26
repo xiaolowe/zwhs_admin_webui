@@ -1,0 +1,138 @@
+<div class="pageheader">
+    
+    <p class="description">{{main.headerText}}</p>
+    <div class="breadcrumb-wrapper hidden-xs">
+        <span class="label">你的足迹:</span>
+        <ol class="breadcrumb">
+            <li class="active">首页</li>
+        </ol>
+    </div>
+</div>
+<section id="main-content" ng-controller="index">
+    <div class="row">
+        <div class="col-md-12 col-lg-12">
+            <div class="panel panel-default">
+                <div class="panel-body " >
+                    <!-- -->
+
+                        <div class="col-md-3">
+                            <div class="panel panel-solid-success widget-mini">
+                                <div class="panel-body" style="background: #C66265;">
+                                   <a ui-sref="orders.orderslistall" class="indexlink" style="color:#fff"> <i class="fa fa-bar-chart-o"></i>
+                                        <span class="total text-center">{{indexcount.ordercount}}</span>
+                                        <span class="title text-center">今日订单数</span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+
+
+
+                        <div class="col-xs-12 col-sm-6 col-md-6 col-lg-3">
+                            <div class="panel panel-solid-success widget-mini">
+                                <div class="panel-body" style="background: #C66265;">
+                                     <a ui-sref="finance.income" class="indexlink" style="color:#fff"> <i class="icon-bar-chart"></i>
+                                         <span class="total text-center">¥{{indexcount.ordermoney}}</span>
+                                         <span class="title text-center">今日交易额</span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-3">
+                            <div class="panel panel-solid-success widget-mini">
+                                <div class="panel-body" style="background: #8FB5D6;">
+                                     <a ui-sref="store.list" class="indexlink" style="color:#fff"><i class="icon-bar-chart"></i>
+                                         <span class="total text-center">{{indexcount.storeuncheck}}</span>
+                                         <span class="title text-center">母婴店认证申请</span>
+                                   </a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-3">
+                            <div class="panel panel-solid-success widget-mini">
+                                <div class="panel-body" style="background: #8FB5D6;">
+                                   <a ui-sref="goods.list" class="indexlink" style="color:#fff"><i class="icon-bar-chart"></i>
+                                    <span class="total text-center">{{indexcount.goodsuncheck}}</span>
+                                    <span class="title text-center">商品入库申请</span>
+                                     </a>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        
+                        
+                        
+
+                           <div class="col-md-3 " ng-show="role_id <= 2 ">
+                            <div class="panel panel-solid-success widget-mini">
+                                <div class="panel widget-mini">
+                                <div class="panel-body">
+                                    <i class="icon-support"></i>
+                                   
+                                      <a ui-sref="finance.audit" >  <span class="title text-center">
+                                        <span class="label label-primary label-circle pull-right">{{indexcount.cashuncheck}}</span>提款申请</span></a>
+                                </div>
+                            </div>
+                    </div>
+                        </div>
+
+                        <div class="col-md-3"  ng-hide="role_id==4">
+                            <div class="panel widget-mini">
+                                <div class="panel-body">
+                                    <i class="icon-bar-chart"></i>
+                                    <a ui-sref="finance.cashier" > <span class="title text-center">待打款项
+                                    <span class="label label-primary label-circle pull-right">{{indexcount.cashunpay}}</span></span></a>
+                                </div>
+                            </div>
+                        </div>
+                        
+            
+                        <div class="col-md-12">
+
+                                <div class="">
+                                 
+                                    <h3 class="panel-title">城市销售业绩 Top10</h3>
+                                   
+                               
+                                  <div class="panel-body">
+
+                                    <div class="table-responsive">
+                                      <table class="table ">
+                                        <thead>
+                                          <tr>
+                                            <th>Top</th>
+                                            <th>省</th>
+                                            <th>市</th>
+                                            <th>母婴店数量/(个)</th>
+                                            <th>订单数量/(个)</th>
+                                            <th>交易额/(元)</th>
+                                          </tr>
+                                        </thead>
+                                        <tbody>
+                                          <tr ng-repeat="item in indexcount.topmoney">
+                                            <td>{{$index+1}}</td>
+                                            <td>{{item.province}}</td>
+                                            <td>{{item.city}}</td>
+                                            <td>{{item.storenum}}</td>
+                                            <td>{{item.ordernum}}</td>
+                                            <td>{{item.ordermoney}}</td>
+                                          </tr>
+                                        
+                                         
+                                        </tbody>
+                                      </table>
+                                    </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <!-- -->
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

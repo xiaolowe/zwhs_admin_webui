@@ -1,0 +1,42 @@
+<div class="pageheader">
+                <h1>上门服务管理</h1>
+                <div class="breadcrumb-wrapper hidden-xs">
+                    <span class="label">你的足迹:</span>
+                    <ol class="breadcrumb">
+                        <li><a href="index.html">上门服务管理</a></li>
+                        
+                        
+                    </ol>
+                </div>
+            </div>
+
+            <section id="main-content" class="animated fadeInRight"  ng-controller="openservice">
+                      <div class="row">
+                       <div class="col-md-12">
+                        <div class="panel panel-default">
+                          <div class="panel-heading">
+                            <h3 class="panel-title">上门服务管理</h3>
+                          </div>
+
+                          <div class="panel-body" >
+                            <div ng-repeat="item in Divide">         
+                           {{item.storeId}} {{item.companyName}}
+                            <button class="btn btn-sm btn-primary" ng-click="removesubClassify(item)">删除</button>
+                                                                                      
+                             
+                           </div>  
+                            <div ng-repeat="item in list">         
+                               输入母婴店编号:<input type="number" ng-model="item.sgName"> 
+                                <button class="btn btn-sm btn-primary" ng-click="postDivide(item)">保存</button>
+                                <button class="btn btn-sm btn-primary" ng-click="unsetDetails(item)">删除</button>
+                                
+                             
+                           </div>  
+                           
+                            <button  class="btn btn-success" ng-click="addDivide(list)">添加白名单</button>
+                                  
+                          </div>
+                     </div>
+                </div>
+            </div>
+        </section>

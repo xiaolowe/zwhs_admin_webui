@@ -1,0 +1,44 @@
+<div class="pageheader">
+                <h1>店铺分成管理</h1>
+                <div class="breadcrumb-wrapper hidden-xs">
+                    <span class="label">你的足迹:</span>
+                    <ol class="breadcrumb">
+                        <li><a href="index.html">店铺管理</a></li>
+                        <li><a href="index.html">店铺分成管理</a></li>
+                        
+                    </ol>
+                </div>
+            </div>
+
+            <section id="main-content" class="animated fadeInRight"  ng-controller="storeDivide">
+                      <div class="row">
+                       <div class="col-md-12">
+                        <div class="panel panel-default">
+                          <div class="panel-heading">
+                            <h3 class="panel-title">店铺分成管理</h3>
+                          </div>
+
+                          <div class="panel-body" >
+                            <div ng-repeat="item in Divide">         
+                             店铺等级:&nbsp;<input type="text" class="pub-iput" ng-model="item.sgName" >&nbsp;&nbsp;
+                             分成比例(%):&nbsp;<input type="text" class="pub-iput" ng-model="item.commisRates" >&nbsp;
+                                <button class="btn btn-sm btn-primary" ng-click="saveDivide(item)" >修改</button>
+                                <!--<button class="btn btn-sm btn-primary" ng-click="removeDetails(item)">删除</button>-->
+                             
+                           </div>  
+                            <div ng-repeat="item in list">
+                               <form class="form-horizontal" novalidate id="Divideadd" name="Divideadd" >         
+                                 店铺等级:&nbsp;<input type="text" class="pub-iput" ng-model="item.sgName" name="sgName" required>&nbsp;&nbsp;
+                                 分成比例(%):&nbsp;<input type="text" class="pub-iput" ng-model="item.commisRates" name="commisRates" required>&nbsp;
+                                    <button class="btn btn-sm btn-primary" ng-click="postDivide(item,Divideadd.$valid)">新增</button>
+                                    <!--<button class="btn btn-sm btn-primary" ng-click="unsetDetails(item)">删除</button>-->
+                               </from>
+                           </div>  
+                           
+                          <button style="margin: 10px 0px 0px 269px" class="btn btn-success" ng-click="addDivide(list)">添加等级</button>
+                                  
+                          </div>
+                     </div>
+                </div>
+            </div>
+        </section>

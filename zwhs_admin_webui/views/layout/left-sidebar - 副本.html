@@ -1,0 +1,120 @@
+<nav>
+    <h5 class="sidebar-header">导航</h5>
+    <!-- location directive.js | data-nav-toggle-sub maps to -->
+    <ul class="nav nav-pills nav-stacked">
+        <li ui-sref-active="active">
+            <a href="" ui-sref="index" title="首页">
+                <i class="fa fa-fw fa-tachometer"></i> 首页
+            </a>
+        </li>
+        
+        <li class="nav-dropdown" ng-class="{active: $state.includes('orders')}">
+            <a href="" ui-sref="orders.list" title="订单管理">
+                <i class="fa fa-fw fa-tachometer"></i> 订单管理
+            </a>
+          
+        </li>
+
+
+        <li class="nav-dropdown" ng-class="{active: $state.includes('store')}">
+            <a href="" ui-sref="store.list" title="店铺管理">
+                <i class="fa fa-fw fa-tachometer"></i> 店铺管理
+
+            </a>
+            <ul class="nav-sub" ng-class="{active: $state.includes('store')}">
+                <li ui-sref-active="active">
+                    <a href="#" ui-sref="store.divide" title="Blank Page">店铺分成管理</a>
+                </li>
+               
+             </ul>
+          
+        </li>
+
+        <li class="nav-dropdown" ng-class="{active: $state.includes('user')}">
+            <a href="" ui-sref="user.list" title="会员管理">
+                <i class="fa fa-fw fa-tachometer"></i> 会员管理
+            </a>
+          
+        </li>
+
+        <li class="nav-dropdown" ng-class="{active: $state.includes('goods')}">
+            <a href="" ui-sref="goods.list" title="首页">
+                <i class="fa fa-fw fa-tachometer"></i> 商品管理
+            </a>
+            <ul class="nav-sub" ng-class="{in: $state.includes('')}">
+                
+                <li ui-sref-active="active">
+                    <a href="#" ui-sref="goods.classify" title="Another Blank Page">分类管理</a>
+                </li>
+                <li ui-sref-active="active">
+                    <a href="#" ui-sref="goods.brand" title="Another Blank Page">品牌管理</a>
+                </li>
+             </ul>
+          
+        </li>
+
+     
+
+        <li class="nav-dropdown" ng-class="{active: $state.includes('comment')}">
+            <a href="" ui-sref="comment.list" title="首页">
+                <i class="fa fa-fw fa-tachometer"></i> 评论管理
+            </a>
+          
+        </li>
+
+        <li class="nav-dropdown" ng-class="{active: $state.includes('finance')}">
+            <a href="" ui-sref="finance.list" title="用户">
+                <i class="fa fa-fw fa-file-text"></i> 财务管理
+            </a>
+            <ul class="nav-sub" ng-class="{in: $state.includes('finance')}">
+                <li ui-sref-active="active">
+                    <a href="#" ui-sref="finance.audit" title="Blank Page">待审核
+                   </a>
+                </li>
+
+                <li ui-sref-active="active">
+                    <a href="#" ui-sref="finance.cashier" title="Blank Page">待打款
+                   </a>
+                </li>
+
+                <li ui-sref-active="active">
+                    <a href="#" ui-sref="finance.list" title="Blank Page">支出明细
+                   </a>
+                </li>
+               
+                <li ui-sref-active="active" ng-class="{in: $state.includes('finance')}">
+                    <a href="#" ui-sref="finance.income" title="Another Blank Page">收入明细</a>
+                </li>
+             </ul>
+        </li>
+
+
+
+        <li class="nav-dropdown" ng-class="{active: $state.includes('')}">
+            <a href=""  title="用户">
+                <i class="fa fa-fw fa-file-text"></i> 母婴店知识管理
+            </a>
+            <ul class="nav-sub" ng-class="{in: $state.includes('')}">
+                <li ui-sref-active="active">
+                    <a href="#" ui-sref="login" title="Blank Page">知识列表
+                   </a>
+                </li>
+                <li ui-sref-active="active">
+                    <a href="#" ui-sref="user.profile" title="Another Blank Page">知识分类管理</a>
+                </li>
+               
+             </ul>
+        </li>
+
+
+        <li class="nav-dropdown" ng-class="">
+            <a href="" ui-sref="service" title="首页">
+                <i class="fa fa-fw fa-tachometer"></i> 服务上门
+            </a>
+          
+        </li>
+        
+
+      
+    </ul>
+</nav>

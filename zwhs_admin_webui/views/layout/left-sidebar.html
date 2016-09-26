@@ -1,0 +1,162 @@
+<nav>
+    <h5 class="sidebar-header">导航</h5>
+    <!-- location directive.js | data-nav-toggle-sub maps to -->
+    <ul class="nav nav-pills nav-stacked">
+        <li ui-sref-active="active">
+            <a href="" ui-sref="index" title="首页">
+                <i class="fa fa-fw fa-home"></i> 首页
+            </a>
+        </li>
+        
+        <li class="nav-dropdown" ng-class="{active: $state.includes('orders')}">
+            <a href="" ui-sref="orders.orderslistall" title="订单管理">
+                <i class="fa fa-fw fa-area-chart"></i>商品订单管理
+            </a>
+          <ul class="nav-sub" ng-class="{active: $state.includes('store')}">
+                <li ui-sref-active="active">
+                    <a href="#" ui-sref="orders.orderslistall" title="普通订单">普通订单</a>
+                </li>
+                <li ui-sref-active="active">
+                    <a href="#" ui-sref="orders.orderslist_fenxiaoall" title="分销订单">分销订单</a>
+                </li>
+             </ul>
+        </li>
+
+
+        <li class="nav-dropdown" ng-class="{active: $state.includes('store')}" ng-hide="role_id == 2 || role_id == 3 ">
+            <a href="" ui-sref="store.list" title="店铺管理">
+                <i class="fa fa-fw fa-bank"></i> 店铺管理
+
+            </a>
+            <ul class="nav-sub" ng-class="{active: $state.includes('store')}">
+                <li ui-sref-active="active">
+                    <a href="#" ui-sref="store.divide" title="店铺分成管理">店铺分成管理</a>
+                </li>
+               
+             </ul>
+          
+        </li>
+		<li class="nav-dropdown" ng-class="{active: $state.includes('fx')}">
+            <a href="" ui-sref="fx.list" title="分销管理">
+                <i class="fa fa-fw fa-user"></i> 分销管理
+            </a>
+          	
+        </li>
+        <li class="nav-dropdown" ng-class="{active: $state.includes('user')}">
+            <a href="" ui-sref="user.list" title="会员管理">
+                <i class="fa fa-fw fa-user"></i> 会员管理
+            </a>
+          
+        </li>
+
+        <li class="nav-dropdown" ng-class="{active: $state.includes('goods')}" ng-hide="role_id == 2 || role_id == 3 ">
+            <a href="" ui-sref="goods.list" title="商品管理">
+                <i class="fa fa-fw fa-archive"></i> 商品管理
+            </a>
+            <ul class="nav-sub" ng-class="{in: $state.includes('')}">
+                
+                <li ui-sref-active="active">
+                    <a href="#" ui-sref="goods.classify" title="分类管理">分类管理</a>
+                </li>
+                <li ui-sref-active="active">
+                    <a href="#" ui-sref="goods.brand" title="品牌管理">品牌管理</a>
+                </li>
+                 <li ui-sref-active="active">
+                    <a href="#" ui-sref="goods.upGoodsList" title="上架商品列表">上架商品列表</a>
+                </li>
+             </ul>
+        </li>
+
+     
+
+       <li class="nav-dropdown" ng-class="{active: $state.includes('comment')}" ng-hide="role_id == 2 || role_id == 3 ">
+            <a href="" ui-sref="comment.list" title="评论管理">
+                <i class="fa fa-fw fa-comments"></i> 评论管理
+            </a>
+        </li> <!---->
+
+        <li class="nav-dropdown" ng-class="{active: $state.includes('finance')}" ng-hide="role_id == 4">
+            <a href="" ui-sref="finance.list" title="财务管理">
+                <i class="fa fa-fw fa-pie-chart"></i> 财务管理
+            </a>
+            <ul class="nav-sub" ng-class="{in: $state.includes('finance')}" >
+                <li ui-sref-active="active" ng-show="role_id != 3">
+                    <a href="#" ui-sref="finance.audit" title="财务管理.待审核">待审核
+                   </a>
+                </li>
+
+                <li ui-sref-active="active">
+                    <a href="#" ui-sref="finance.cashier" title="财务管理.待打款">待打款
+                   </a>
+                </li>
+
+                <li ui-sref-active="active">
+                    <a href="#" ui-sref="finance.list" title="财务管理.支出明细">支出明细
+                   </a>
+                </li>
+               
+                <li ui-sref-active="active" ng-class="{in: $state.includes('finance')}">
+                    <a href="#" ui-sref="finance.income" title="财务管理.收入明细">收入明细</a>
+                </li>
+             </ul>
+        </li>
+
+         <li class="nav-dropdown" ng-class="{active: $state.includes('admin')}" ng-show="role_id==1">
+            <a href="" ui-sref="admin.list" title="平台账户设置">
+                <i class="fa fa-fw fa-cogs"></i> 平台账户设置
+            </a>
+          
+        </li>
+
+        <li class="nav-dropdown" ng-class="{active: $state.includes('knowledge')}" ng-hide="role_id == 2 || role_id == 3 ">
+            <a href=""  ui-sref="knowledge.list"  title="母婴店知识管理">
+                <i class="fa fa-fw fa-file-text"></i> 母婴店知识管理
+            </a>
+            <ul class="nav-sub" ng-class="{in: $state.includes('')}">
+               
+                <li ui-sref-active="active">
+                    <a href="#" ui-sref="knowledge.type" title="知识分类管理">知识分类管理</a>
+                </li>
+               
+             </ul>
+        </li><!---->
+
+
+        <li class="nav-dropdown"  ng-class="{active: $state.includes('coupon')}">
+            <a href="" ui-sref="coupon.list" title="营销活动">
+                <i class="fa fa-fw fa-taxi"></i> 营销活动
+            </a>
+          
+        </li>
+
+        <li class="nav-dropdown"  ng-class="{active: $state.includes('serve')}">
+            <a href="#" ui-sref="serve.service"  title="服务管理">
+                <i class="fa fa-fw fa-taxi"></i> 服务管理
+            </a>
+            <ul class="nav-sub" ng-class="{in: $state.includes('')}">
+               
+               <!-- <li ui-sref-active="active">
+                    <a href="#" ui-sref="serve.service" title="服务管理">服务管理</a>
+                </li>-->
+                 <li ui-sref-active="active">
+                    <a href="#" ui-sref="serve.provider" title="服务商管理">服务商管理</a>
+                </li>
+                 <li ui-sref-active="active">
+                    <a href="#" ui-sref="serve.store" title="母婴店服务管理">母婴店服务管理</a>
+                </li>
+                  <li ui-sref-active="active">
+                    <a href="#" ui-sref="serve.orders" title="服务订单管理">服务订单管理</a>
+                </li>
+                 <!--<li ui-sref-active="active">
+                    <a href="#" ui-sref="knowledge.type" title="服务订单管理">服务订单管理</a>
+                </li>-->
+
+               
+             </ul>
+          
+        </li>
+        
+
+      
+    </ul>
+</nav>

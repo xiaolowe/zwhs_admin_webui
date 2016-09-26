@@ -1,0 +1,54 @@
+<div class="pageheader" >
+    <h1>商品管理</h1>
+    <div class="breadcrumb-wrapper hidden-xs">
+        <span class="label">你的足迹:</span>
+        <ol class="breadcrumb">
+           
+            <li><a href="">商品品牌管理</a></li>
+            
+        </ol>
+    </div>
+</div>
+
+<section id="main-content" class="animated fadeInRight" ng-controller="addBrand">
+  <div class="row">
+     <div class="col-md-12">
+        <div class="panel panel-default">
+              <div class="panel-heading">
+                <h3 class="panel-title">新增品牌</h3>
+              </div>
+
+              <div class="panel-body" style="">           
+                 <div class="panel-body profile-wrapper">
+                    
+                    <div class="col-md-10">
+                        <div class="profile-info user_detail" >
+                            <form  name="form" novalidate="novalidate" >
+                                <h3>品牌名称&nbsp;:&nbsp;<input type="text"  class="pub-iput"  name='brand_name' ng-model="brand_name" required>
+                                      <span class="chenkerror" ng-show="(chenkerror && form.brand_name.$invalid) || (form.brand_name.$invalid && form.brand_name.$dirty )">请填写品牌名称</span>
+                                      <span class="chenkerror" ng-show="repeatadd">品牌名称重复</span>
+                                 </h3>
+                                <h3>货&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;源&nbsp;:&nbsp;<select class="pub-select" name="example_length" aria-controls="example" class="input-sm" ng-model="goods_source" >
+                                    <option    value="1">国产</option>
+                                     <option    value="2">进口</option>
+                                  </select>  &nbsp;&nbsp;&nbsp;</h3>
+                                <h3> </h3>
+                                <img ng-src="{{brand_pic|asImage:'100_100'}}" ng-show='brand_pic'  height='50px'>
+                               <input type="hidden"  name='brand_pic'  ng-model="brand_pic" required> 
+                                <a  link="brand_pic" upload-file upload-file hidemy="true" ratio="50_50">上传图片</a>
+                                    <span class="chenkerror" ng-show="(chenkerror && form.brand_pic.$invalid) || (form.brand_pic.$invalid && form.brand_pic.$dirty )">请上传图片</span>
+
+                                <div class="connect">
+                                    <button type="button"  ng-click="postBrand()">保存</button>
+                                     <a href="" ui-sref="goods.brand" title="首页">返回 </a>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                  
+           </div>
+         </div>
+    </div>
+</div>
+</section>

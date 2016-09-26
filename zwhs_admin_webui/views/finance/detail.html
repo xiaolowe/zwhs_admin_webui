@@ -1,0 +1,96 @@
+
+            <section id="main-content" >
+                      <div class="row" ng-controller="financemodal">
+                       <div class="col-md-12">
+                        <div class="panel panel-default">
+                          <div class="panel-heading">
+                            <h3 class="panel-title">支出明细</h3>
+                           
+                          </div>
+                          
+
+                        
+                        
+                            
+                          <div class="panel-body" style="">           
+                            
+                             
+                                  <div class="tab-wrapper tab-primary" >
+                                     
+
+                                        <div class="col-sm-6">
+                              支付编号:{{financemodal.cashNo}}
+                            </div>
+                            <div class="col-sm-6">
+                              申请时间:{{financemodal.applyTime| date : 'yyyy年MM月dd日 HH:mm'}}
+                            </div>
+                            <div class="col-sm-6">
+                              状态:
+                               <sapn ng-if="financemodal.confirmStat==2">已打款</sapn>
+                              <sapn ng-if="financemodal.confirmStat==3">驳回</sapn>
+                            </div>
+                            <div class="col-sm-6">
+                              申请类型:母婴店提款
+                            </div>
+
+                             <div class="col-sm-6">
+                              申请人:{{financemodal.storeUser.userTruename}}
+                            </div>
+                            <div class="col-sm-6">
+                              申请单位:{{financemodal.companyName}}
+                            </div>
+                            <div class="col-sm-6">
+                              银行卡:{{financemodal.bankAccNumber}}
+                            </div>
+                            <div class="col-sm-6">
+                              持卡人:{{financemodal.bankOwner}}
+                            </div>
+                             <div class="col-sm-12">
+                              开户行：{{financemodal.bankAccName}}
+                            </div>
+                            <div class="col-sm-12">
+                              申请金额:{{financemodal.applyMoney| currency : '￥'}}
+                            </div>
+                            <div class="col-sm-12">
+                              账户余额：{{financemodal.accSurplus| currency : '￥'}}
+                            </div>
+
+                             <div class="col-sm-6" >
+                              审核人:{{financemodal.confirmUserName}}&nbsp;&nbsp;&nbsp;&nbsp; 
+                            </div>
+
+                               <div class="col-sm-6" ng-show="financemodal.confirmStat!=3">
+                              审核时间:{{financemodal.confirmTime | date : 'yyyy-MM-dd  HH:mm:ss'}}
+                            </div>
+
+                            <div class="col-sm-6" ng-show="financemodal.confirmStat==3">
+                              驳回时间:{{financemodal.confirmTime | date : 'yyyy-MM-dd  HH:mm:ss'}}
+                            </div>
+
+
+                             <div class="col-sm-6" ng-show="financemodal.confirmStat!=3">
+                              打款人:{{financemodal.payingUserName}}&nbsp;&nbsp;&nbsp;&nbsp; 
+                            </div>
+
+                            <div class="col-sm-6" ng-show="financemodal.confirmStat!=3">
+                              打款时间:{{financemodal.payingTime| date : 'yyyy-MM-dd  HH:mm:ss'}}
+                            </div>
+                             <div class="col-sm-12" ng-show="financemodal.confirmStat!=3">
+                              打款凭证:
+                                <a href="{{financemodal.payingCertificate | asImage:'150_150'}}"  target="_blank"> <img ng-src="{{financemodal.payingCertificate | asImage:'150_150'}}" ng-show='financemodal.payingCertificate' height="150px" ></a>
+                            </div>
+
+
+                             <div class="col-sm-12">
+                             
+                            
+                             <!--  <a  >查看凭证</a>-->
+                            </div>
+                          
+                   </div>
+
+                       </div>
+                     </div>
+                </div>
+            </div>
+        </section>

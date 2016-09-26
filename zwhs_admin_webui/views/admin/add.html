@@ -1,0 +1,77 @@
+<div class="pageheader" >
+    <h1>平台账号管理</h1>
+    <div class="breadcrumb-wrapper hidden-xs">
+        <span class="label">你的足迹:</span>
+        <ol class="breadcrumb">
+           
+            <li><a href="">新增平台账号</a></li>
+            
+        </ol>
+    </div>
+</div>
+
+<section id="main-content" class="animated fadeInRight" ng-controller="adminAdd">
+  <div class="row">
+     <div class="col-md-12">
+        <div class="panel panel-default">
+              <div class="panel-heading">
+                <h3 class="panel-title">新增平台账号</h3>
+              </div>
+
+              <div class="panel-body" style="">           
+                 <div class="panel-body profile-wrapper">
+                    
+                    <div class="col-md-10">
+                        <div class="profile-info user_detail" >
+                           
+                            <form  name="form" novalidate="novalidate" >
+                              <div class="adminadd">账&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;号&nbsp;:&nbsp;
+                                 <input type="text"  class="pub-iput" ng-model="admin.userName" name="userName" required>
+                                 <span class="chenkerror" ng-show="(chenkerror && form.userName.$invalid) || (form.userName.$invalid && form.userName.$dirty )">账号不能为空</span>
+                              </div>
+                               
+
+                             
+                              <div class="adminadd">密&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;码&nbsp;:&nbsp;
+                                <input type="text" name="userPwd" class="pub-iput" ng-model="userPwd" required>
+                                 <span class="chenkerror" ng-show="(chenkerror && form.userPwd.$invalid) || (form.userPwd.$invalid && form.userPwd.$dirty )">密码不能为空</span>
+                              </div>
+                              
+
+                              <div class="adminadd">使&nbsp;&nbsp;用&nbsp;人&nbsp;:&nbsp;
+                                <input type="text" name="userTruename"  class="pub-iput" ng-model="userTruename" required>
+                                 <span class="chenkerror" ng-show="(chenkerror && form.userTruename.$invalid) || (form.userTruename.$invalid && form.userTruename.$dirty )">使用人不能为空</span>
+                              </div>
+                             
+                              <div class="adminadd">联系电话&nbsp;:&nbsp;
+                                <input type="text"  name="userPhone"  class="pub-iput" ng-model="userPhone" required ng-minlength="11" ng-maxlength="11">
+                                 <span class="chenkerror" ng-show="(chenkerror && form.userPhone.$invalid) || (form.userPhone.$invalid && form.userPhone.$dirty )">请填写11位手机号码</span>
+                              </div>
+
+                              <div class="adminadd">权&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;限&nbsp;:&nbsp;&nbsp;
+
+                                <select class="pub-select"  name="role_id" aria-controls="example" class="input-sm" ng-model="role_id" ng-options="x.roleId as x.roleName for x in role">
+                                </select>  &nbsp;&nbsp;&nbsp;
+                                
+                              </div>
+
+                              <div class="adminadd">状&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;态&nbsp;:&nbsp;&nbsp;<select class="pub-select"  name="example_length" aria-controls="example" class="input-sm" ng-model="userState">
+                                   <option value="0">禁用</option>
+                                   <option value="1">正常</option>
+                                 </select> &nbsp;&nbsp;&nbsp;</div>
+
+                              <div class="connect">
+                                 <button class="btn btn-sm btn-primary " ng-click="addadmin()">新增账号</button>
+                                 <a ui-sref="admin.list">  <button class="btn btn-sm btn-primary">返回</button> </a>
+                              </div>
+                           </form>
+
+                        </div>
+                    </div>
+                </div>
+                  
+           </div>
+         </div>
+    </div>
+</div>
+</section>

@@ -1,0 +1,193 @@
+<div class="pageheader" >
+    <h1>分销订单列表</h1>
+    <div class="breadcrumb-wrapper hidden-xs">
+        <span class="label">你的足迹:</span>
+        <ol class="breadcrumb">
+            <li><a href="index.html">订单列表</a>
+            
+        </ol>
+    </div>
+</div>
+
+<section id="main-content" class="animated fadeInRight"  ng-controller="fx_orderslist" >
+    <div class="row">
+     <div class="col-md-12">
+      <div class="panel panel-default">
+          <div class="panel-heading" ng-show="detai">
+            <h3 class="panel-title">订单详情</h3>
+          </div>
+              
+
+        <div class="panel-body" ng-show="detai"> 
+                   <table  width="80%">
+                      <tbody>
+                      
+                        <tr >
+                            <th>  订单编号:{{orders.orderId}}</th>
+                            <th> 订单时间:{{orders.addTime | date : 'yyyy年MM月dd日 HH:mm'}}</th>
+                        </tr>
+                        <tr >
+                            <th> 省份/城市:{{orders.provinceName.regionName}}/{{orders.cityName.regionName}}</th>
+                            <th>  下单会员:{{orders.memberTruename}}</th>
+                        </tr>
+                         
+                         <tr >
+                            <th> 手机号:{{orders.contactsPhone}}</th>
+                            <th>  接单母婴店:{{orders.companyName}}</th>
+                        </tr>
+                         <tr >
+                            <th> 母婴店编号:{{orders.storeId}}</th>
+                            <th> 订单状态:未支付</th>
+                        </tr>
+                         <tr >
+                            <th>  关联支付单号:<span ng-show="orders.payId !=0">{{orders.payId}}</sapn></th>
+                            <th> 支付方式:-</th>
+                        </tr>
+                         <tr >
+                            <th>  平台分成金额:{{orders.commisAmount| currency : '￥'}}</th>
+                            <th>平台分成比例:{{orders.commisRates}}%</th>
+                        </tr>
+                         <tr >
+                            <th>  母婴店收益:{{orders.storeAmount| currency : '￥'}}</th>
+                            <th>  订单金额:{{orders.goodsAmount| currency : '￥'}}
+                                <span ng-if="orders.storeOrderCoupon.storeCoupon.couponMoney && orders.storeOrderCoupon.storeCoupon.storeId>0"> (含店铺优惠券{{orders.storeOrderCoupon.storeCoupon.couponMoney}}元)</span>
+                                <span ng-if="orders.storeOrderCoupon.storeCoupon.couponMoney && orders.storeOrderCoupon.storeCoupon.storeId==null"> (含平台优惠券{{orders.storeOrderCoupon.storeCoupon.couponMoney}}元)</span>
+                            </th>
+                        </tr>
+                          <tr >
+                            <th>  收货地址:{{orders.wechatMember.wechatMemberAddrs[0].contactsAddress}}&nbsp; </th>
+                            <th> </th>
+                        </tr>
+                      </tbody>
+                  </table>
+                   <table class="table table-striped table-bordered"cellspacing="0" >
+                        <thead>
+                            <tr>
+                                <th>商品编号</th>
+                                <th>商品品牌</th>
+                                <th>商品名称</th>
+                                <th>规格</th>
+                                <th>单价</th>
+                                <th>数量</th>
+                                <th>合计</th>
+                               
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="item in orders.orderGood">
+                                <th>{{item.goodsId}}</th>
+                                <th>{{item.brandName}}</th>
+                                <th>{{item.goodsName}}</th>
+                                <th>{{item.goodsSpec}}</th>
+                                <th>{{item.goodsPrice}}</th>
+                                <th>{{item.goodsNum}}</th>
+                                <th>{{item.goodsPayPrice}}</th>
+                            </tr> 
+                        </tbody> 
+                    </table>
+                 <div ><button type="button" class="btn btn-info btn-sm quiet" ng-click="listshow()">返&nbsp;回</button></div>
+        </div>
+     
+
+                
+                
+                    
+       
+              
+          <div class="panel-heading" ng-show="list">
+            <h3 class="panel-title">订单列表</h3>
+          </div>
+
+
+              <div class="panel-body"  ng-show="list">
+
+                      <div class="tab-wrapper tab-primary" >
+                          <tabset>
+                              <tab heading="全部" ng-click="gotab_fenxiao('all')"></tab>
+
+
+                              <tab heading="未支付" ng-controller="fx_orderslist10" ng-click="gotab_fenxiao(10)" active='true'>
+								 <div class="row">
+                                         <div class="col-sm-6">
+                                           起始时间&nbsp;:&nbsp;
+                                                   <input type="text"  date-picker class="pub-iput"  ng-model='start_time' >
+                                            -&nbsp;<input type="text"  date-picker class="pub-iput"   ng-model='end_time' minDate="{{start_time}}">
+                                          </div>
+                                          <div class="col-sm-6">
+
+                                            <select  class="pub-select" ng-model="brand_no">
+                                                       <option value="">订单号码</option>
+                                            </select>
+                                             <input type="number"  class="pub-iput" ng-model='order_id'>
+                                          
+                                           
+                                          
+                                             <button type="button" class="btn btn-sm btn-primary " ng-click="search()">筛选</button>
+                                             <a ng-href="{{excel}}/order/downloadExcel?start_time={{start_time}}&end_time={{end_time}}&order_id={{order_id}}&order_status={{10}}&Authorization={{token}}" target="_blank" ><button type="button" class="btn btn-sm  btn-info" >下载报表</button></a>
+                                          </div>
+
+                                      </div>
+                                <div class="table-responsive">
+                                   <table id="example" class="table table-striped table-bordered "cellspacing="0" width="100%">
+                                        <thead>
+                                            <tr>
+                                                <th>订单号</th>
+                                                <th>下单时间</th>
+                                                <th>下单会员</th>
+                                                <th>母婴店</th>
+                                                <th>订单金额</th>
+                                                <th>平台分成金额</th>
+                                                <th>母婴店收益</th>
+                                                <th>操作</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr ng-repeat="item in rows">
+                                                  <th>{{item.orderId}}</th>
+                                                <th>{{item.addTime | date : 'yyyy年MM月dd日 HH:mm:ss'}}</th>
+                                                <th>{{item.memberTruename}}</th>
+                                                <th>{{item.companyName}}</th>
+                                                <th>{{item.orderAmount| currency : '￥'}}
+                                                  <span ng-if="item.storeOrderCoupon.storeCoupon.couponMoney && item.storeOrderCoupon.storeCoupon.storeId>0"> (含店铺优惠券{{item.storeOrderCoupon.storeCoupon.couponMoney}}元)</span>
+                                                   <span ng-if="item.storeOrderCoupon.storeCoupon.couponMoney && item.storeOrderCoupon.storeCoupon.storeId==null"> (含平台优惠券{{item.storeOrderCoupon.storeCoupon.couponMoney}}元)</span>
+                                                </th>
+                                                <th>{{item.commisAmount| currency : '￥'}}</th>
+                                                <th>{{item.storeAmount| currency : '￥'}}</th>
+                                                <td><a><span type="button"  ng-click="goDetails(item.orderId)">查看详情</button></a></td>
+                                            </tr>
+
+                                             <tr ng-show="rows.length==0">
+                                                 <th    colspan="8">没有筛选出符合条件的订单</td>
+                                            </tr>
+
+                                        </tbody>
+                                    </table>
+                                     <!-- page -->
+                                        <div>
+                                            <div uib-pagination total-items="totalItems" ng-model="currentPage" ng-change="pageChanged()" items-per-page="10" max-size="10" template-url="views/page/pagination.html" boundary-links="true"></div>
+                                          </div>
+                                      <!-- /page -->
+                                </div>
+							  </tab>
+
+                              <tab heading="已支付" ng-controller="fx_orderslist20" ng-click="gotab_fenxiao(20)"></tab>
+
+                              <tab heading="已收货" ng-controller="fx_orderslist30" ng-click="gotab_fenxiao(30)"></tab>
+
+                              <tab heading="已评价" ng-controller="fx_orderslist40" ng-click="gotab_fenxiao(40)"></tab>
+
+                              <tab heading="已取消" ng-controller="fx_orderslist0" ng-click="gotab_fenxiao(0)"></tab>
+                             
+                              
+                              
+                          </tabset>
+                      </div>
+                      
+                  
+                 
+
+               </div>
+             </div>
+        </div>
+    </div>
+</section>

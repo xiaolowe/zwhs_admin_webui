@@ -1,0 +1,102 @@
+<div class="pageheader" >
+    <h1>商品管理</h1>
+    <div class="breadcrumb-wrapper hidden-xs">
+          <span class="label">你的足迹:</span>
+             <ol class="breadcrumb">
+                  <li><a href="index.html">商品管理</a>
+                  <li><a href="index.html">分类管理</a>
+                        
+            s</ol>
+    </div>
+</div>
+
+<section id="main-content" class="animated fadeInRight"  ng-controller="goodsClassify">
+   <div class="col-md-6">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">一级分类管理</h3>
+                <div class="actions pull-right">
+                
+                </div>
+            </div>
+            <div class="panel-body">
+               <div class="row" ui-sortable ng-model="todos">
+                  <div class="input-group" ng-repeat="todo in todos" style="padding:5px 10px; cursor:move;">
+                      <input type="text" ng-model="todo.gcName" class="form-control" ng-click="subclass(todo)" >
+                      <span class="input-group-btn">
+                          <!--<button class="btn btn-danger" ng-click="saveClassify(todo)" aria-label="Remove">修改</button>-->
+                          <button class="btn btn-danger" ng-click="removeClassify(todo)" aria-label="Remove">删除</button>
+                      </span>
+                      
+
+                  </div>
+
+                   <div class="input-group" ng-repeat="todo in todospar" style="padding:5px 10px; cursor:move;">
+                      <input type="text" ng-model="todo.gcName" class="form-control" ng-click="clear()" >
+                      <span class="input-group-btn">
+                          <button class="btn btn-danger" ng-click="addclass(todo)" aria-label="Remove">保存</button>
+                          <button class="btn btn-danger" ng-click="unsetaddclass(todo)" aria-label="Remove">删除</button>
+                      </span>
+                      
+
+                  </div>
+              </div>
+              <div class="col-md-12">
+               
+                  <button class="btn btn-sm btn-primary " ng-click="addparClassify()">新增分类</button>
+              </div>
+              </div>
+
+
+            </div>
+        </div>
+    </div>
+
+
+   <div class="col-md-6" ng-show="subselect==true">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">{{subclasstitle}} 子分类管理</h3>
+                <div class="actions pull-right">
+                
+                </div>
+            </div>
+            <div class="panel-body" >
+               <div class="row" ui-sortable ng-model="subtodos">
+                  
+                  
+                  <div class="input-group" ng-repeat="todo in subtodos" style="padding:5px 10px; cursor:move;">
+                      <input type="text" ng-model="todo.gcName" class="form-control">
+
+                      <span class="input-group-btn">
+                          <!--<button class="btn btn-danger" ng-click="saveClassify(todo)" aria-label="Remove">修改</button>-->
+                          <button class="btn btn-danger" ng-click="removesubClassify(todo)" aria-label="Remove">删除</button>
+
+                      </span>
+                  </div>
+
+
+                  <div class="input-group" ng-repeat="todo in todossub" style="padding:5px 10px; cursor:move;">
+                      <input type="text" ng-model="todo.gcName" class="form-control">
+
+                      <span class="input-group-btn">
+                          <button class="btn btn-danger" ng-click="subaddclass(todo)" aria-label="Remove">保存</button>
+                            <button class="btn btn-danger" ng-click="unsetasubddclass($index)" aria-label="Remove">删除</button>
+
+                      </span>
+                  </div>
+              </div>
+             
+              <div class="col-md-12">
+                 
+                  <button class="btn btn-sm btn-primary " ng-click="addsubClassify()">新增分类</button>
+              </div>
+              </div>
+
+
+            </div>
+        </div>
+    </div>
+
+
+ </section>

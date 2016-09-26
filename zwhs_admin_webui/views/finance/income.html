@@ -1,0 +1,167 @@
+<div class="pageheader" >
+                <h1>收入明细</h1>
+                <div class="breadcrumb-wrapper hidden-xs">
+                    <span class="label">你的足迹:</span>
+                    <ol class="breadcrumb">
+                        <li><a href="index.html">收入明细</a>
+                        
+                    </ol>
+                </div>
+            </div>
+
+            <section id="main-content" class="animated fadeInRight" ng-controller="financeIncome" >
+                      <div class="row">
+                       <div class="col-md-12">
+                        <div class="panel panel-default">
+                          <div class="panel-heading">
+                            <h3 class="panel-title">收入明细</h3>
+                           
+                          </div>
+
+
+                     <div class="panel-body" style="" ng-show="detailing">
+                        <div class="col-sm-2">
+                          支付编号:{{storepayDetail.payId}}
+                        </div>
+                        <div class="col-sm-10">
+                          支付时间:{{storepayDetail.payTime| date : 'yyyy年MM月dd日 HH:mm:ss'}}
+                        </div>
+                        <div class="col-sm-2">
+                          支付人:{{storepayDetail.wechatMember.wechatAliasname}}
+                        </div>
+                        <div class="col-sm-10">
+                          联系电话:{{storepayDetail.wechatMember.wechatMemberAddrs[0].contactsPhone}}
+                        </div>
+
+                         <div class="col-sm-2">
+                          收款单位:{{storepayDetail.companyName}}
+                        </div>
+                        <div class="col-sm-10">
+                          支付方式:微信支付
+                        </div>
+                        <div class="col-sm-2">
+                          应收金额:{{storepayDetail.commisAmount| currency : '￥'}}
+                        </div>
+                        <div class="col-sm-10">
+                          支付状态:已支付
+                        </div>
+                         <div class="col-sm-10">
+                             <table id="example" class="table table-striped table-bordered "cellspacing="0" width="100%">
+                                  <thead>
+                                      <tr>
+                                          <th>关联订单</th>
+                                          <th>关联母婴店</th>
+                                          <th>订单金额</th>
+                                          <th>平台分成比例</th>
+                                          <th>平台分成金额</th>
+                                        
+                                        
+                                      </tr>
+                                  </thead>
+                           
+                                  <tbody>
+                                      <tr >
+                                         <th>{{storepayDetail.storeOrder.orderId}}</th>
+                                          <th>{{storepayDetail.storeOrder.companyName}}</th>
+                                          <th>{{storepayDetail.storeOrder.goodsAmount | currency : '￥'}}</th>
+                                          <th>{{storepayDetail.storeOrder.commisRates}}%</th>
+                                          <th>{{storepayDetail.storeOrder.commisAmount| currency : '￥'}}</th>
+                                          
+                                      </Tr>    
+                                  </tbody>
+                              </table>
+                        </div>
+                       
+                        <div class="col-sm-12">
+                          
+                          <button class="btn btn-sm btn-primary " ng-click="listshow()">返回</button>
+                        </div>
+
+                        
+                      </div>
+
+
+
+
+
+
+                          <div class="panel-body" style="" ng-show="list" ng-controller="financeIncomeall">
+                                  <div class="tab-wrapper tab-primary"   >
+                                      
+                                         
+                                            
+
+                                              
+                                               <div class="tab-wrapper tab-primary"   >
+                                                  起始时间&nbsp;:&nbsp;
+                                                           <input type="text"  date-picker class="pub-iput"  ng-model='stime' >
+                                                    -&nbsp;<input type="text"  date-picker class="pub-iput"   ng-model='etime'>
+                                                 支付人&nbsp;:&nbsp;<input type="text" class="pub-iput" class="form-control"  ng-model='pay_member_name'>
+                                                  收款单位&nbsp;:&nbsp;<input type="text" class="pub-iput" class="form-control"  ng-model='company_name'>
+                                                  支付单号&nbsp;:&nbsp;<input type="text" class="pub-iput" class="form-control"   ng-model='pay_id'>
+                                                   <button type="button" class="btn btn-sm btn-primary" ng-click="search()">筛选</button>
+
+              <a ng-href="{{excel}}/storepay/downloadExcel?start_time={{stime}}&end_time={{etime}}&pay_member_name={{pay_member_name}}&company_name={{company_name}}&pay_id={{pay_id}}&Authorization={{token}}" target="_blank" >
+                                                <button type="button" class="btn btn-sm  btn-info" >下载报表</button>
+                                              </a>
+
+
+
+
+                                            <div class="table-responsive">
+                                               <table id="example" class="table table-striped table-bordered "cellspacing="0" width="100%">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>支付单号</th>
+                                                            <th>支付时间</th>
+                                                            <th>支付人</th>
+                                                          
+                                                            
+                                                            <th>收款单位</th>
+                                                            <th>支付金额</th>
+                                                            <th>平台提成比例</th>
+                                                           
+                                                            <th>操作</th>
+                                                        </tr>
+                                                    </thead>
+                                             
+                                                    <tbody>
+                                                        <tr ng-repeat="item in rows">
+                                                            <th>{{item.payId}}</th>
+                                                            <th>{{item.payTime| date : 'yyyy年MM月dd日 HH:mm:ss'}}</th>
+                                                            <th>{{item.wechatMember.wechatAliasname}}</th>
+                                                           <!-- <th>{{item.wechatMember.wechatMemberAddrs[0].contactsPhone}}</th>-->
+                                                         
+                                                            <th>{{item.companyName}}</th>
+                                                            <th>{{item.payMoney | currency : '￥'}}</th>
+                                                            <th>{{item.commisRates}}%</th>
+                                                            
+                                                             <td><a><span type="button"  ng-click="detailshow(item.payId)">查看详情</button></a></td>
+                                                        </tr>
+                                                          <tr ng-show="rows.length==0">
+                                                              <th    colspan="9">没有筛选出符合条件的订单</td>
+                                                           </tr>
+                                                    </tbody>
+                                                </table>
+                                     <!-- page -->
+                                        <div>
+                                            <div uib-pagination total-items="totalItems" ng-model="currentPage" ng-change="pageChanged()" items-per-page="10" max-size="10" template-url="views/page/pagination.html" boundary-links="true"></div>
+                                          </div>
+                                      <!-- /page -->
+                                            </div>
+                                      
+                                  </div>
+                              
+                          
+                         
+
+                       </div>
+                     </div>
+                </div>
+            </div>
+        </section>
+
+
+
+
+

@@ -1,0 +1,162 @@
+<div class="pageheader" >
+                <h1>评论管理</h1>
+                <div class="breadcrumb-wrapper hidden-xs">
+                    <span class="label">你的足迹:</span>
+                    <ol class="breadcrumb">
+                        <li><a href="index.html">评论列表</a>
+                        
+                    </ol>
+                </div>
+            </div>
+
+  <section id="main-content" class="animated fadeInRight" ng-controller="commentDetail">
+            <div class="row">
+             <div class="col-md-12">
+              <div class="panel panel-default">
+                <div class="panel-heading">
+                  <h3 class="panel-title">评论管理</h3>
+                 
+                </div>
+                
+
+                <div class="panel-body" ng-show="de" >
+                  <div class="row" >
+                         <div class="col-sm-3">
+
+                          母婴店编号：{{detailsing.store.storeId}}
+                        </div>
+                        <div class="col-sm-9" >
+                          母婴店名称：{{detailsing.store.companyName}}
+                        </div>
+                        <div class="col-sm-3">
+                          商品编号：{{detailsing.goodsId}}
+                        </div>
+                        <div class="col-sm-9" >
+                          商品品牌：{{detailsing.brandName}}
+                        </div>
+                        <div class="col-sm-3">
+                          商品名称：{{detailsing.goodsName}}
+                        </div>
+                        <div class="col-sm-9" >
+                          商品串码：{{detailsing.goodsSn}}
+                        </div>
+                        <div class="col-sm-3">
+                          分类：{{detailsing.gcName}}
+                        </div>
+                        <div class="col-sm-9" >
+                          子分类：{{detailsing.gcLitName}}
+                        </div>
+                        <div class="col-sm-12">
+                         规格：{{detailsing.goodsSpec}}
+                        </div>
+                        <!--<div class="col-sm-3">
+                          平均评分:
+                        </div>
+                        <div class="col-sm-9" >
+                         评论条数：
+                        </div>-->
+                         <div class="col-sm-6"  ng-show="rows.length==0">
+                                      该商品暂无评论
+                         </div>
+                        <div class="col-sm-6">
+
+                              <div class="col-sm-12" >
+                                <div ng-repeat="item in rows"> 
+                                  <div style="border: 1px solid #ddd;    margin-top: -1px;line-height: 40px;"><span>评论者:{{item.memberTruename}} &nbsp;&nbsp; 评分：{{item.gevalScores}}&nbsp;&nbsp;评论时间:{{item.gevalAddtime | date : 'yyyy年MM月dd日 HH:mm'}}</span>
+                                    <span ng-show="item.gevalState==0" style="float: right" ng-click="evaluategood(item,1)">取消评论</span>
+                                    <span ng-show="item.gevalState==1" style="float: right" ng-click="evaluategood(item,0)">已屏蔽(开启评论)</span>
+
+                                  </div>
+                                   <div style="border: 1px solid #ddd;;border-top: 0px;  line-height: 40px;  margin-top: -1px;">评论内容：
+                                  {{item.gevalContent}}
+                                   </div>
+
+
+                                </div>
+                                 
+                                  <!-- page -->
+                                      <div ng-show="rows.length>0">
+                                          <div uib-pagination total-items="totalItems" ng-model="currentPage" ng-change="pageChanged()" items-per-page="10" max-size="10" template-url="views/page/pagination.html" boundary-links="true"></div>
+                                      </div>
+                                   <!-- /page -->
+                              </div>
+                              
+                        </div>
+                       
+                        <div class="col-sm-6"></div>
+                        <div class="col-sm-12">
+                          
+                          <button type="button" class="btn btn-sm btn-primary" ng-click="listshow()">返回</button>
+                        </div>
+                       
+                    </div>
+                </div>
+          
+                <div class="panel-heading" ng-show="list">
+                
+                </div>
+               
+
+              
+              
+                  
+                <div class="panel-body" style="" ng-show="list" ng-controller="commentList">
+                    <div class="row">
+                         <div class="col-sm-12">
+                              起始时间&nbsp;:&nbsp;
+                                                   <input type="text"  date-picker class="pub-iput"  ng-model='start_time' >
+                                            -&nbsp;<input type="text"  date-picker class="pub-iput"   ng-model='end_time' minDate="{{start_time}}">
+                                   
+                                 
+                                  
+                              分类:<select  class="pub-select"  ng-model="pclass" >
+                                          <option   ></option>
+                                      <option  value="{{items.gcNo}}" ng-repeat="items in goodsclass" >{{items.gcName}}</option>
+                               </select>
+                            <input type="text"  class="pub-iput" placeholder="请输入母婴店名" ng-model="store_name">
+                            <input type="text"  class="pub-iput" placeholder="请输入商品名称" ng-model="good_name">
+                           <button type="button" class="btn btn-sm btn-primary " ng-click="search()">搜索</button>
+                          
+                        </div>
+                    
+                    </div>
+                   <table id="example" class="table table-striped table-bordered "cellspacing="0" width="100%">
+                        <thead>
+                            <tr>
+                                <th>母婴店编号</th>
+                                <th>母婴店名称</th>
+                                <th>商品品牌</th>
+                                <th>商品名称</th>
+                                <th>分类</th>
+                                <!--<th>平均分</th>-->
+                                <th>上架时间</th>
+                                <th>操作</th>
+                            </tr>
+                        </thead>
+                 
+                        <tbody>
+                            <tr  ng-repeat="item in rows">
+                                <td>{{item.store.storeId}}</td>
+                                <td>{{item.store.companyName}}</td>
+                                <td>{{item.brandName}}</td>
+                                <td>{{item.goodsName}}</td>
+                                <td>{{item.gcName}}</td>
+                                <!--<td>{{item.gcName}}</td>-->
+                                <td>{{item.insDate | date : 'yyyy年MM月dd日 HH:mm'}}</td>
+                               
+                                
+                                <td><button class="btn btn-sm btn-primary" ng-click="userDetails(item.goodsId)">查看详情</button></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                   <!-- page -->
+                      <div>
+                          <div uib-pagination total-items="totalItems" ng-model="currentPage" ng-change="pageChanged()" items-per-page="10" max-size="10" template-url="views/page/pagination.html" boundary-links="true"></div>
+                      </div>
+                   <!-- /page -->
+                    
+                  </div>
+           </div>
+      </div>
+  </div>
+</section>

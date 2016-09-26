@@ -1,0 +1,365 @@
+<div class="pageheader" >
+                <h1>服务管理</h1>
+                <div class="breadcrumb-wrapper hidden-xs">
+                    <span class="label">你的足迹:</span>
+                    <ol class="breadcrumb">
+                        <li><a href="index.html">服务管理</a>
+                        
+                    </ol>
+                </div>
+            </div>
+
+            <section id="main-content" class="animated fadeInRight" ng-controller="service" >
+                      <div class="row">
+                       <div class="col-md-12">
+                        <div class="panel panel-default">
+                          <div class="panel-heading">
+                            <h3 class="panel-title">服务列表</h3>
+                           
+                          </div>
+                          
+
+       <div class="panel-body" style="" ng-show="detail">           
+                         <div class="panel-body profile-wrapper">
+                            
+                            <div class="col-md-10">
+                                <div class="profile-info user_detail addgoods" >
+                                  <div class="col-md-6">
+                                     服务编号 : {{serviceinfo.serviceId}}
+                                  </div>
+
+                                  <div class="col-md-6">
+                                     服务名称 : {{serviceinfo.serviceName}}
+                                  </div>
+                                  
+                                  <div class="col-md-6">
+                                     服务商名称 : {{serviceinfo.serviceProvider.companyName}}
+                                  </div>
+                                  <div class="col-md-6">
+                                    服务类型 : <span ng-show="serviceinfo.type==1">上门服务</span> <span ng-show="serviceinfo.type==2">到店服务</span>
+                                  </div>
+                                
+                                   <div class="col-md-6">
+                                      服务金额 ：{{serviceinfo.servicePrice| currency : '￥'}}
+                                  </div>
+
+                                  <div class="col-md-6">
+                                      服务时间 ：{{serviceinfo.businessStart}}~{{serviceinfo.businessEnd}}
+                                  </div>
+
+                                 
+                                   <div class="col-md-12" style="height: 50px">
+                                     覆盖区域 : <span style="margin-right: 25px" ng-repeat="items in serviceinfo.serviceCoverageArea">{{items.regionProvName}}/{{items.regionCityName}}/{{items.regionAreaName}}</span>
+
+                                  </div>
+
+                                  <div class="col-md-6" >
+                                     服务Logo : <a ng-click="openImage(serviceinfo.serviceLogo)" class=""><img height='20px' ng-src="{{serviceinfo.serviceLogo|asImage:'50_50'}}"></a>
+                                  </div>
+
+                                  <div class="col-md-12" >
+                                     分成比例 : 
+                                      服务商<input type="text" ng-model="serviceinfo.providerRates" class="pub-iput"  >% 
+                                      母婴店<input type="text" ng-model="serviceinfo.storeRates" class="pub-iput"  >% 
+                                      平台<input type="text" ng-model="serviceinfo.commisRates" class="pub-iput"  >% 
+                                  </div>
+
+                                  
+
+                                  
+
+                                   <div class="col-md-12" style="margin:12px 0px 12px 0px">
+                                     服务图片: 
+                                     <a ng-click="openImage(serviceinfo.servicePic1)" ><img height='50px' ng-src="{{serviceinfo.servicePic1|asImage:'40_40'}}"></a>
+                                     <!--<a ng-click="openImage(serviceinfo.servicePic2)" ><img height='50px' ng-src="{{serviceinfo.servicePic2|asImage:'40_40'}}"></a>
+                                     <a ng-click="openImage(serviceinfo.servicePic3)" ><img height='50px' ng-src="{{serviceinfo.servicePic3|asImage:'50_50'}}"></a>
+                                     <a ng-click="openImage(serviceinfo.servicePic4)" ><img height='50px' ng-src="{{serviceinfo.servicePic4|asImage:'50_50'}}"></a>
+                                     <a ng-click="openImage(serviceinfo.servicePic5)" ><img height='50px' ng-src="{{serviceinfo.servicePic5|asImage:'50_50'}}"></a>-->
+                                         
+                                  </div>
+
+                                  <div class="col-md-12">
+                                    
+                                      <form class="form-horizontal" novalidate="">
+                                          <div class="ueditor" name="content" config=" {toolbars:[
+                                              ['bold', 'italic', 'underline', 'strikethrough', 'forecolor', 'backcolor', 'justifyleft', 'justifycenter', 'justifyright', '|', 'insertunorderedlist', 'insertorderedlist', 'blockquote', 'emotion', 'uploadimage', 'link', 'removeformat', '|', 'rowspacingtop', 'rowspacingbottom', 'lineheight', 'paragraph', 'fontsize', 'source', 'fullscreen'],
+                                              ['inserttable', 'deletetable', 'insertparagraphbeforetable', 'insertrow', 'deleterow', 'insertcol', 'deletecol', 'mergecells', 'mergeright', 'mergedown', 'splittocells', 'splittorows', 'splittocols']
+                                            ],
+                                                autoClearinitialContent:true,
+                                                wordCount:false,
+                                                elementPathEnabled:false,
+                                                initialFrameWidth:null,
+                                                initialFrameHeight:300,
+                                          }" ng-model="serviceinfo.remark" link="goodsdescription" required></div>
+                                        </form>
+                            
+
+                                  </div>
+                                  
+                                  
+
+                                  <div class="col-md-9" ng-show="serviceinfo.serviceVerify==0" >
+                                     <button class="btn btn-sm btn-primary " ng-click="check(serviceinfo.serviceId)">审核通过</button>
+                                       <button class="btn btn-sm btn-primary " ng-click="uncheck(serviceinfo.serviceId)">审核驳回</button>
+                                        <button class="btn btn-sm btn-primary " ng-click="listshow()">返回</button>
+                                  </div>
+
+                                  <div class="col-md-9" ng-show="serviceinfo.serviceVerify==1 && serviceinfo.serviceState==1">
+                                     <button class="btn btn-sm btn-primary " ng-click="serviceBan(serviceinfo.serviceId)">禁售服务</button>
+                                      <button class="btn btn-sm btn-primary " ng-click="saveservice(serviceinfo.serviceId)">保存</button>
+                                       <button class="btn btn-sm btn-primary " ng-click="listshow()">返回</button>
+                                  </div>
+
+                                  <div class="col-md-9" ng-show="serviceinfo.serviceVerify==1 && serviceinfo.serviceState==10">
+                                     <button class="btn btn-sm btn-primary " ng-click="serviceOpen(serviceinfo.serviceId)">解除禁售</button>
+                                      <button class="btn btn-sm btn-primary " ng-click="saveservice(serviceinfo.serviceId)">保存</button>
+                                       <button class="btn btn-sm btn-primary " ng-click="listshow()">返回</button>
+                                  </div>
+
+
+                                 
+                                </div>
+                                  
+                            </div>
+                        </div>
+                   </div>
+                    
+                     
+
+
+                      <div class="panel-body" style="" ng-show="list">
+                                  <div class="tab-wrapper tab-primary" >
+                                      <tabset>
+                                          <tab heading="已上架服务"  ng-controller="serviceNormal" >
+                                            <div class="table-responsive">
+                                              <div class="col-md-12">
+                                               服务类型:&nbsp;<select class="pub-select" ng-model="type">
+                                                      <option  value="" >全部</option>
+                                                      <option  value="1"  >上门服务</option>
+                                                      <option  value="2"  >到店服务</option>
+                                                     </select>
+                                                <input type="text" class="pub-iput"  placeholder="输入服务名称" ng-model="service_name">
+                                                 <!--<input type="text" class="pub-iput"  placeholder="输入服务商名称" ng-model="provider_alias_name">-->
+                                                <button class="btn btn-sm btn-primary " class="pub-iput" ng-click='search()'>筛选</button>
+                                               
+                                              </div>
+                                              <br/>
+                                              <br/>
+
+
+                                               <table id="example" class="table table-striped table-bordered "cellspacing="0" width="100%" >
+                                                    <thead>
+                                                        <tr>
+                                                           <th width="">服务编号</th>
+                                                            <th width="">服务名称</th>
+                                                            <th width="">服务商名称</th>
+                                                            <th width="">服务类型</th>
+                                                            <th width="">服务金额</th>
+                                                            <th width="">申请时间</th>
+                                                            <th width="">操作</th>
+                                                           
+                                                        </tr>
+                                                    </thead>
+                                             
+                                                    <tbody>
+                                                        <tr ng-repeat="items in rows">
+                                                            <td>{{items.serviceId}}</td>
+                                                            <td>{{items.serviceName}}</td>
+                                                            <td>{{items.serviceProvider.companyName}}</td>
+                                                            <td ng-if="items.type==1">上门</td>
+                                                            <td ng-if="items.type==2">到店</td>
+                                                            <td>{{items.servicePrice | currency : '￥'}}</td>
+                                                            <td>{{items.serviceAddtime| date : 'yyyy年MM月dd日 HH:mm'}}</td>
+                                                            <td><a><span type="button"  ng-click="detailshow(items.serviceId)">查看详情</button></a></td>
+                                                        </tr>
+                                                         <tr ng-show="rows.length==0">
+                                                             <th    colspan="7">没查询到数据</td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                                 <!-- page -->
+                                                    <div>
+                                                        <div uib-pagination total-items="totalItems" ng-model="currentPage" ng-change="pageChanged()" items-per-page="10" max-size="10" template-url="views/page/pagination.html" boundary-links="true"></div>
+                                                      </div>
+                                                  <!-- /page -->
+                                            </div>
+                                          </tab>
+
+                                          <tab heading="未上架服务"  ng-controller="serviceRecovery" >
+                                            <div class="table-responsive">
+                                              <div class="col-md-12">
+                                               服务类型:&nbsp;<select class="pub-select" ng-model="type">
+                                                      <option  value="" >全部</option>
+                                                      <option  value="1"  >上门服务</option>
+                                                      <option  value="2"  >到店服务</option>
+                                                     </select>
+                                                <input type="text" class="pub-iput"  placeholder="输入服务名称" ng-model="service_name">
+                                                 <!--<input type="text" class="pub-iput"  placeholder="输入服务商名称" ng-model="provider_alias_name">-->
+                                                <button class="btn btn-sm btn-primary " class="pub-iput" ng-click='search()'>筛选</button>
+                                               
+                                              </div>
+                                              <br/>
+                                              <br/>
+                                               <table id="example" class="table table-striped table-bordered "cellspacing="0" width="100%" >
+                                                    <thead>
+                                                        <tr>
+                                                           <th width="">服务编号</th>
+                                                            <th width="">服务名称</th>
+                                                            <th width="">服务商名称</th>
+                                                            <th width="">服务类型</th>
+                                                            <th width="">服务金额</th>
+                                                            <th width="">申请时间</th>
+                                                            <th width="">操作</th>
+                                                           
+                                                        </tr>
+                                                    </thead>
+                                             
+                                                    <tbody>
+                                                        <tr ng-repeat="items in rows">
+                                                            <td>{{items.serviceId}}</td>
+                                                            <td>{{items.serviceName}}</td>
+                                                            <td>{{items.serviceProvider.companyName}}</td>
+                                                            <td ng-if="items.type==1">上门</td>
+                                                            <td ng-if="items.type==2">到店</td>
+                                                            <td>{{items.servicePrice | currency : '￥'}}</td>
+                                                            <td>{{items.serviceAddtime| date : 'yyyy年MM月dd日 HH:mm'}}</td>
+                                                            <td><a><span type="button"  ng-click="detailshow(items.serviceId)">查看详情</button></a></td>
+                                                        </tr>
+                                                         <tr ng-show="rows.length==0">
+                                                             <th    colspan="7">没查询到数据</td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                                 <!-- page -->
+                                                    <div>
+                                                        <div uib-pagination total-items="totalItems" ng-model="currentPage" ng-change="pageChanged()" items-per-page="10" max-size="10" template-url="views/page/pagination.html" boundary-links="true"></div>
+                                                      </div>
+                                                  <!-- /page -->
+                                            </div>
+                                          </tab>
+
+
+                                          <tab heading="未审核"  ng-controller="service0" >
+                                            <div class="table-responsive">
+                                              <div class="col-md-12">
+                                               服务类型:&nbsp;<select class="pub-select" ng-model="type">
+                                                      <option  value="" >全部</option>
+                                                      <option  value="1"  >上门服务</option>
+                                                      <option  value="2"  >到店服务</option>
+                                                     </select>
+                                                <input type="text" class="pub-iput"  placeholder="输入服务名称" ng-model="service_name">
+                                                 <!--<input type="text" class="pub-iput"  placeholder="输入服务商名称" ng-model="provider_alias_name">-->
+                                                <button class="btn btn-sm btn-primary " class="pub-iput" ng-click='search()'>筛选</button>
+                                               
+                                              </div>
+                                              <br/>
+                                              <br/>
+                                               <table id="example" class="table table-striped table-bordered "cellspacing="0" width="100%" >
+                                                    <thead>
+                                                        <tr>
+                                                           <th width="">服务编号</th>
+                                                            <th width="">服务名称</th>
+                                                            <th width="">服务商名称</th>
+                                                            <th width="">服务类型</th>
+                                                            <th width="">服务金额</th>
+                                                            <th width="">申请时间</th>
+                                                            <th width="">操作</th>
+                                                           
+                                                        </tr>
+                                                    </thead>
+                                             
+                                                    <tbody>
+                                                        <tr ng-repeat="items in rows">
+                                                            <td>{{items.serviceId}}</td>
+                                                            <td>{{items.serviceName}}</td>
+                                                            <td>{{items.serviceProvider.companyName}}</td>
+                                                            <td ng-if="items.type==1">上门</td>
+                                                            <td ng-if="items.type==2">到店</td>
+                                                            <td>{{items.servicePrice | currency : '￥'}}</td>
+                                                            <td>{{items.serviceAddtime| date : 'yyyy年MM月dd日 HH:mm'}}</td>
+                                                            <td><a><span type="button"  ng-click="detailshow(items.serviceId)">查看详情</button></a></td>
+                                                        </tr>
+                                                         <tr ng-show="rows.length==0">
+                                                             <th    colspan="7">没查询到数据</td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                                 <!-- page -->
+                                                    <div>
+                                                        <div uib-pagination total-items="totalItems" ng-model="currentPage" ng-change="pageChanged()" items-per-page="10" max-size="10" template-url="views/page/pagination.html" boundary-links="true"></div>
+                                                      </div>
+                                                  <!-- /page -->
+                                            </div>
+                                          </tab>
+
+                                          <tab heading="禁售"  ng-controller="serviceBan" >
+                                            <div class="table-responsive">
+                                              <div class="col-md-12">
+                                               服务类型:&nbsp;<select class="pub-select" ng-model="type">
+                                                      <option  value="" >全部</option>
+                                                      <option  value="1"  >上门服务</option>
+                                                      <option  value="2"  >到店服务</option>
+                                                     </select>
+                                                <input type="text" class="pub-iput"  placeholder="输入服务名称" ng-model="service_name">
+                                                 <!--<input type="text" class="pub-iput"  placeholder="输入服务商名称" ng-model="provider_alias_name">-->
+                                                <button class="btn btn-sm btn-primary " class="pub-iput" ng-click='search()'>筛选</button>
+                                               
+                                              </div>
+                                              <br/>
+                                              <br/>
+                                               <table id="example" class="table table-striped table-bordered "cellspacing="0" width="100%" >
+                                                    <thead>
+                                                        <tr>
+                                                           <th width="">服务编号</th>
+                                                            <th width="">服务名称</th>
+                                                            <th width="">服务商名称</th>
+                                                            <th width="">服务类型</th>
+                                                            <th width="">服务金额</th>
+                                                            <th width="">申请时间</th>
+                                                            <th width="">操作</th>
+                                                           
+                                                        </tr>
+                                                    </thead>
+                                             
+                                                    <tbody>
+                                                        <tr ng-repeat="items in rows">
+                                                            <td>{{items.serviceId}}</td>
+                                                            <td>{{items.serviceName}}</td>
+                                                            <td>{{items.serviceProvider.companyName}}</td>
+                                                            <td ng-if="items.type==1">上门</td>
+                                                            <td ng-if="items.type==2">到店</td>
+                                                            <td>{{items.servicePrice | currency : '￥'}}</td>
+                                                            <td>{{items.serviceAddtime| date : 'yyyy年MM月dd日 HH:mm'}}</td>
+                                                            <td><a><span type="button"  ng-click="detailshow(items.serviceId)">查看详情</button></a></td>
+                                                        </tr>
+                                                         <tr ng-show="rows.length==0">
+                                                             <th    colspan="7">没查询到数据</td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                                 <!-- page -->
+                                                    <div>
+                                                        <div uib-pagination total-items="totalItems" ng-model="currentPage" ng-change="pageChanged()" items-per-page="10" max-size="10" template-url="views/page/pagination.html" boundary-links="true"></div>
+                                                      </div>
+                                                  <!-- /page -->
+                                            </div>
+                                          </tab>
+
+
+
+
+                                       
+
+
+                                      </tabset>
+                                  </div>
+                            </div>
+                        
+
+                        
+                            
+                         
+                     </div>
+                </div>
+            </div>
+              </section>
